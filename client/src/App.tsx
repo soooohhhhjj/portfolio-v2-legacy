@@ -1,7 +1,16 @@
-import Home from "./pages/Home";
+import Starfield from "./components/Starfield/Starfield";
+import ControlPanel from "./components/ControlPanel";
+import { useState } from "react";
 
-function App() {
-  return <Home />;
+export default function App() {
+  const [paused, setPaused] = useState(false);
+
+  const togglePause = () => setPaused((prev) => !prev);
+
+  return (
+    <>
+      <Starfield mode={paused ? "paused" : "normal"} />
+      <ControlPanel paused={paused} onTogglePause={togglePause} />
+    </>
+  );
 }
-
-export default App;
