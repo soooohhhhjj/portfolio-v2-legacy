@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import starLogsRoute from "./routes/starLogs";
 
 dotenv.config(); // load .env
 
@@ -11,9 +10,6 @@ const app = express();
 // ✅ Middleware
 app.use(cors({ origin: process.env.FRONTEND_URL }));
 app.use(express.json());
-
-// ✅ Routes
-app.use("/starLogs", starLogsRoute);
 
 // ✅ MongoDB Connection
 mongoose.connect(process.env.MONGO_URI!, {
