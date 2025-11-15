@@ -1,15 +1,46 @@
 import { useEffect, useRef } from "react";
-import { generateStars } from "./layers/stars";
-import type { Star } from "./layers/stars";
+
+interface Star {
+  x: number;
+  y: number;
+  size: number;
+  speed: number;
+  opacity: number;
+  twinkleSpeed: number;
+  twinkleOffset: number;
+}
 
 interface StarfieldProps {
   mode?: "normal" | "vertical" | "paused";
 }
 
+function generateStars(
+  count: number,
+  width: number,
+  height: number,
+  sizeRange: [number, number],
+  speedRange: [number, number]
+): Star[] {
+  const stars: Star[] = [];
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0],
+      speed: Math.random() * (speedRange[1] - speedRange[0]) + speedRange[0],
+      opacity: Math.random() * 0.5 + 0.5,
+      twinkleSpeed: Math.random() * 0.015 + 0.005,
+      twinkleOffset: Math.random() * Math.PI * 2,
+    });
+  }
+  return stars;
+}
+
 export default function Starfield({ mode = "normal" }: StarfieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const modeRef = useRef<"normal" | "vertical" | "paused">(mode);
+  const modeRef = useRef(mode);
   const layersRef = useRef<{ stars: Star[]; speed: number }[]>([]);
+  const timeRef = useRef(0);
 
   useEffect(() => {
     modeRef.current = mode;
@@ -19,31 +50,35 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d")!;
+    const ctx = canvas.getContext("2d", { alpha: false })!;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    function initStars() {
-      const farStars: Star[] = generateStars(100, width, height, [0.5, 1], [0.05, 0.15]);
-      const midStars: Star[] = generateStars(50, width, height, [1, 1.5], [0.1, 0.2]);
-      const nearStars: Star[] = generateStars(15, width, height, [1.5, 2.2], [0.3, 0.5]);
-
+    const initStars = () => {
       layersRef.current = [
-        { stars: farStars, speed: 0.3 },
-        { stars: midStars, speed: 0.6 },
-        { stars: nearStars, speed: 1.0 },
+        { stars: generateStars(100, width, height, [0.5, 0.8], [0.05, 0.15]), speed: 0.2 },
+        { stars: generateStars(30, width, height, [0.8, 1.3], [0.1, 0.2]), speed: 0.4 },
+        { stars: generateStars(15, width, height, [1.3, 1.6], [0.3, 0.5]), speed: 0.6 },
       ];
-    }
+    };
 
     initStars();
 
-    function animate() {
-      ctx.fillStyle = "black";
+    const animate = () => {
+      timeRef.current += 0.016;
+
+      // Pure black background
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
       layersRef.current.forEach(({ stars, speed }) => {
         stars.forEach((star) => {
-          ctx.fillStyle = "#ffffff";
+          // Subtle twinkle
+          const twinkle = Math.sin(timeRef.current * star.twinkleSpeed + star.twinkleOffset) * 0.2 + 0.8;
+          const finalOpacity = star.opacity * twinkle;
+
+          // Plain white star - no glow
+          ctx.fillStyle = `rgba(255, 255, 255, ${finalOpacity})`;
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
           ctx.fill();
@@ -52,8 +87,7 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
           let dy = 0.5 * speed;
 
           if (modeRef.current === "paused") {
-            dx = 0;
-            dy = 0;
+            dx = dy = 0;
           } else if (modeRef.current === "vertical") {
             dx = 0;
             dy = -10 * speed;
@@ -70,14 +104,14 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
       });
 
       requestAnimationFrame(animate);
-    }
+    };
 
     animate();
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      initStars(); // 🔥 regenerate stars for new size
+      initStars();
     };
 
     window.addEventListener("resize", handleResize);
