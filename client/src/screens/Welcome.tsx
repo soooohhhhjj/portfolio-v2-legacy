@@ -1,17 +1,12 @@
 // src/screens/Welcome.tsx
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import type { Transition } from "framer-motion";
 
-export default function Welcome({ onDone }: { onDone?: () => void }) {
+export default function Welcome() {
   const text = "Welcome to My Portfolio Website.😊"; 
   const speed = 40;          
-  const slideDuration = 1.2;  
-  const delayAfterTyping = 500; 
 
   const [displayed, setDisplayed] = useState("");
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const [isSlideTriggered, setIsSlideTriggered] = useState(false);
 
   const indexRef = useRef(0);
   const timeoutRef = useRef<number | null>(null);
@@ -20,7 +15,6 @@ export default function Welcome({ onDone }: { onDone?: () => void }) {
   useEffect(() => {
     setDisplayed("");
     setIsTypingDone(false);
-    setIsSlideTriggered(false);
     indexRef.current = 0;
 
     const tick = () => {
@@ -41,42 +35,14 @@ export default function Welcome({ onDone }: { onDone?: () => void }) {
     };
   }, [text, speed]);
 
-  // Trigger slide after typing + optional delay
-  useEffect(() => {
-    if (isTypingDone) {
-      const timer = setTimeout(() => setIsSlideTriggered(true), delayAfterTyping);
-      return () => clearTimeout(timer);
-    }
-  }, [isTypingDone, delayAfterTyping]);
-
-  // Trigger onDone after slide animation
-  useEffect(() => {
-    if (isSlideTriggered && onDone) {
-      const timer = setTimeout(onDone, slideDuration * 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [isSlideTriggered, slideDuration, onDone]);
-
-  const transition: Transition = { duration: slideDuration, ease: "easeInOut" };
-
   return (
-    <AnimatePresence>
-      {!isSlideTriggered && (
-        <motion.section
-          className="section-style"
-          initial={{ y: 0 }}
-          animate={{ y: 0 }}
-          exit={{ y: "-100vh" }}
-          transition={transition}
-        >
-          <div className="section-content center-div responsiveness text-center">
-            <span className="font-jura text-[30px] tracking-[.09rem] font-[500] text-white">
-              {displayed}
-              <span className={`caret ${isTypingDone ? "blink" : ""}`} />
-            </span>
-          </div>
-        </motion.section>
-      )}
-    </AnimatePresence>
+    <section className="section-style">
+      <div className="section-content center-div responsiveness text-center">
+        <span className="font-jura text-[30px] tracking-[.09rem] font-[500] text-white">
+          {displayed}
+          <span className={`caret ${isTypingDone ? "blink" : ""}`} />
+        </span>
+      </div>
+    </section>
   );
 }

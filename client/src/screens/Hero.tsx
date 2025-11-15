@@ -1,7 +1,6 @@
 // src/screens/Hero.tsx
 import { useState, useEffect } from "react";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
-import { motion } from "framer-motion";
 import "../components/Hero/hero.css";
 
 export default function Hero() {
@@ -33,22 +32,11 @@ export default function Hero() {
   const handleMouseLeave = () => setTargetPosition(10);
 
   return (
-    <motion.section
-      className="section-style"
-      initial={{ y: "-100vh", opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: "-100vh", opacity: 0 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-    >
+    <section className="section-style">
       <div className="section-content responsiveness flex flex-col min-h-screen cursor-default">
 
         {/* NAVBAR */}
-        <motion.nav
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-          className="w-full flex justify-between items-center py-6"
-        >
+        <nav className="w-full flex justify-between items-center py-6">
           <h1 className="font-bruno text-[20px] font-[800] tracking-[2px] text-white drop-shadow-[0_0_1px_#0095ff]">
             sohj.abe
           </h1>
@@ -59,18 +47,13 @@ export default function Hero() {
               Contact
             </button>
           </div>
-        </motion.nav>
+        </nav>
 
         {/* HERO BODY */}
         <div className="flex flex-col md:flex-row flex-1 items-start justify-between gap-12 mt-[25px]">
 
           {/* PROFILE */}
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="relative flex-shrink-0 w-full max-w-[320px] rounded-[7px] overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.15)]"
-          >
+          <div className="relative flex-shrink-0 w-full max-w-[320px] rounded-[7px] overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.15)]">
             <img
               src="/prof-pic.jpg"
               alt="Profile"
@@ -78,15 +61,10 @@ export default function Hero() {
             />
             <div className="absolute inset-0 rounded-[7px] border border-white/10 shadow-[inset_0_0_15px_rgba(255,255,255,0.15)]" />
             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-70 rounded-xl" />
-          </motion.div>
+          </div>
 
           {/* TEXT BLOCKS */}
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-            className="flex-1 max-w-[600px] text-left mt-2"
-          >
+          <div className="flex-1 max-w-[600px] text-left mt-2">
             <p className="font-jura text-[18px] tracking-[.5px] text-gray-300 font-[700]">
               Hi, I'm <span>Carlo Joshua B. Abellera</span>, and I enjoy
             </p>
@@ -125,9 +103,9 @@ export default function Hero() {
                 <SquareArrowOutUpRight size={15} /> Projects
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
