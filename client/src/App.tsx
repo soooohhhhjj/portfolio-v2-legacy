@@ -9,16 +9,15 @@ export default function App() {
   const [slideUp, setSlideUp] = useState(false);
 
   useEffect(() => {
-    // Disable scroll initially
     document.documentElement.style.overflow = 'hidden';
   }, []);
 
   const handleAnimationComplete = () => {
     setSlideUp(true);
-    // Enable scroll after animation
+    
     setTimeout(() => {
       document.documentElement.style.overflow = 'auto';
-    }, 800); // Match animation duration
+    }, 2000);
   };
 
   return (
@@ -26,21 +25,18 @@ export default function App() {
       <div className="fixed inset-0 -z-10">
         <Starfield mode="normal" />
       </div>
-      
+
       <motion.div
-        className="absolute w-full"
+        className="absolute w-full will-change-transform"
         initial={{ y: 0 }}
         animate={{ y: slideUp ? "-100vh" : 0 }}
-        transition={{ 
-          duration: 1.2, 
-          ease: "easeInOut" 
+        transition={{
+          duration: 1,
+          ease: [0.12, 0.7, 0.63, .9]
         }}
       >
-        {/* Welcome Block */}
         <Welcome onAnimationComplete={handleAnimationComplete} />
-        
-        {/* Hero Block */}
-        <Hero />
+        <Hero shouldAnimate={slideUp} />
       </motion.div>
     </main>
   );

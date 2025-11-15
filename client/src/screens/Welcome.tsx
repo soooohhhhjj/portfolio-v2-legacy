@@ -1,4 +1,4 @@
-// src/screens/Welcome.tsx - Remove framer-motion, just handle typing
+// src/screens/Welcome.tsx
 import { useEffect, useRef, useState } from "react";
 
 interface WelcomeProps {
