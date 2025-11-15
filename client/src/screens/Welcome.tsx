@@ -3,21 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Transition } from "framer-motion";
 
-type WelcomeProps = {
-  text: string;
-  speed?: number;          // typing speed (ms per character)
-  slideDuration?: number;  // duration of slide-up animation
-  delayAfterTyping?: number; // delay after typing before slide
-  onDone?: () => void;
-};
+export default function Welcome({ onDone }: { onDone?: () => void }) {
+  const text = "Welcome to My Portfolio Website.😊"; 
+  const speed = 40;          
+  const slideDuration = 1.2;  
+  const delayAfterTyping = 500; 
 
-export default function Welcome({
-  text,
-  speed = 100,
-  slideDuration = 1.2,
-  delayAfterTyping = 500,
-  onDone,
-}: WelcomeProps) {
   const [displayed, setDisplayed] = useState("");
   const [isTypingDone, setIsTypingDone] = useState(false);
   const [isSlideTriggered, setIsSlideTriggered] = useState(false);
@@ -39,15 +30,12 @@ export default function Welcome({
         timeoutRef.current = null;
         return;
       }
-
       setDisplayed((prev) => prev + text.charAt(i));
       indexRef.current += 1;
-
       timeoutRef.current = window.setTimeout(tick, speed);
     };
 
     timeoutRef.current = window.setTimeout(tick, speed);
-
     return () => {
       if (timeoutRef.current !== null) clearTimeout(timeoutRef.current);
     };
@@ -61,10 +49,10 @@ export default function Welcome({
     }
   }, [isTypingDone, delayAfterTyping]);
 
-  // Trigger parent callback after slide
+  // Trigger onDone after slide animation
   useEffect(() => {
     if (isSlideTriggered && onDone) {
-      const timer = setTimeout(onDone, slideDuration * 1000); // convert seconds to ms
+      const timer = setTimeout(onDone, slideDuration * 1000);
       return () => clearTimeout(timer);
     }
   }, [isSlideTriggered, slideDuration, onDone]);
@@ -82,7 +70,7 @@ export default function Welcome({
           transition={transition}
         >
           <div className="section-content center-div responsiveness text-center">
-            <span className="font-jura text-[35px] tracking-[.09rem] font-[600] text-white">
+            <span className="font-jura text-[30px] tracking-[.09rem] font-[500] text-white">
               {displayed}
               <span className={`caret ${isTypingDone ? "blink" : ""}`} />
             </span>

@@ -1,28 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+// src/screens/Hero.tsx
+import { useState, useEffect } from "react";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import "../components/Hero/hero.css";
 
-type HeroProps = {
-  startAnimation?: boolean; // trigger from App
-  blockDelays?: {
-    navbar?: number;
-    profile?: number;
-    intro?: number;
-    headline?: number;
-    subtitle?: number;
-    buttons?: number;
-  };
-};
-
-export default function Hero({ startAnimation = false, blockDelays }: HeroProps) {
+export default function Hero() {
   const words = ["Building", "pixel-perfect", "Interactive", "Websites"];
   const [gradientPosition, setGradientPosition] = useState(0);
   const [targetPosition, setTargetPosition] = useState(0);
-  const animationRef = useRef<number | null>(null);
 
   // Smooth gradient animation for "Interactive"
   useEffect(() => {
+    let animationRef: number;
     const animate = () => {
       setGradientPosition(prev => {
         const diff = targetPosition - prev;
@@ -30,13 +19,10 @@ export default function Hero({ startAnimation = false, blockDelays }: HeroProps)
         if (Math.abs(diff) < 0.1) return targetPosition;
         return prev + step;
       });
-      animationRef.current = requestAnimationFrame(animate);
+      animationRef = requestAnimationFrame(animate);
     };
-
-    animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current !== null) cancelAnimationFrame(animationRef.current);
-    };
+    animationRef = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationRef);
   }, [targetPosition]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -46,19 +32,21 @@ export default function Hero({ startAnimation = false, blockDelays }: HeroProps)
   };
   const handleMouseLeave = () => setTargetPosition(10);
 
-  // -------------------------
-  // Hero Blocks as motion.div
-  // -------------------------
-
   return (
-    <section className="section-style">
+    <motion.section
+      className="section-style"
+      initial={{ y: "-100vh", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: "-100vh", opacity: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+    >
       <div className="section-content responsiveness flex flex-col min-h-screen cursor-default">
 
-        {/* NAVBAR BLOCK */}
+        {/* NAVBAR */}
         <motion.nav
-          initial={{ y: -100, opacity: 0 }}
-          animate={startAnimation ? { y: 0, opacity: 1 } : {}}
-          transition={{ delay: blockDelays?.navbar ?? 0.2, duration: 0.8, ease: "easeOut" }}
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
           className="w-full flex justify-between items-center py-6"
         >
           <h1 className="font-bruno text-[20px] font-[800] tracking-[2px] text-white drop-shadow-[0_0_1px_#0095ff]">
@@ -76,11 +64,11 @@ export default function Hero({ startAnimation = false, blockDelays }: HeroProps)
         {/* HERO BODY */}
         <div className="flex flex-col md:flex-row flex-1 items-start justify-between gap-12 mt-[25px]">
 
-          {/* PROFILE BLOCK */}
+          {/* PROFILE */}
           <motion.div
-            initial={{ x: -100, opacity: 0 }}
-            animate={startAnimation ? { x: 0, opacity: 1 } : {}}
-            transition={{ delay: blockDelays?.profile ?? 0.4, duration: 1, ease: "easeOut" }}
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
             className="relative flex-shrink-0 w-full max-w-[320px] rounded-[7px] overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.15)]"
           >
             <img
@@ -92,26 +80,18 @@ export default function Hero({ startAnimation = false, blockDelays }: HeroProps)
             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-70 rounded-xl" />
           </motion.div>
 
-          {/* RIGHT SIDE TEXT BLOCKS */}
-          <div className="flex-1 max-w-[600px] text-left mt-2">
-
-            {/* INTRO */}
-            <motion.p
-              initial={{ y: 50, opacity: 0 }}
-              animate={startAnimation ? { y: 0, opacity: 1 } : {}}
-              transition={{ delay: blockDelays?.intro ?? 0.6, duration: 0.8, ease: "easeOut" }}
-              className="font-jura text-[18px] tracking-[.5px] text-gray-300 font-[700]"
-            >
+          {/* TEXT BLOCKS */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+            className="flex-1 max-w-[600px] text-left mt-2"
+          >
+            <p className="font-jura text-[18px] tracking-[.5px] text-gray-300 font-[700]">
               Hi, I'm <span>Carlo Joshua B. Abellera</span>, and I enjoy
-            </motion.p>
+            </p>
 
-            {/* HEADLINE */}
-            <motion.h2
-              initial={{ y: 50, opacity: 0 }}
-              animate={startAnimation ? { y: 0, opacity: 1 } : {}}
-              transition={{ delay: blockDelays?.headline ?? 0.8, duration: 1, ease: "easeOut" }}
-              className="font-anta text-[56px] font-extrabold leading-tight text-gray-100 mt-2"
-            >
+            <h2 className="font-anta text-[56px] font-extrabold leading-tight text-gray-100 mt-2">
               {words.map((word, idx) =>
                 word === "Interactive" ? (
                   <span
@@ -128,41 +108,26 @@ export default function Hero({ startAnimation = false, blockDelays }: HeroProps)
                     {word}
                   </span>
                 ) : (
-                  <span key={idx} className="inline-block mr-2 text-gray-100">
-                    {word}
-                  </span>
+                  <span key={idx} className="inline-block mr-2 text-gray-100">{word}</span>
                 )
               )}
-            </motion.h2>
+            </h2>
 
-            {/* SUBTITLE */}
-            <motion.p
-              initial={{ y: 50, opacity: 0 }}
-              animate={startAnimation ? { y: 0, opacity: 1 } : {}}
-              transition={{ delay: blockDelays?.subtitle ?? 1, duration: 0.8, ease: "easeOut" }}
-              className="font-bruno text-[23px] font-[700] tracking-[1px] text-white mt-12"
-            >
+            <p className="font-bruno text-[23px] font-[700] tracking-[1px] text-white mt-12">
               Full-Stack Developer
-            </motion.p>
+            </p>
 
-            {/* BUTTONS */}
-            <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={startAnimation ? { y: 0, opacity: 1 } : {}}
-              transition={{ delay: blockDelays?.buttons ?? 1.2, duration: 0.8, ease: "easeOut" }}
-              className="flex flex-wrap gap-4 pt-7 text-[14px] font-[700] font-jura"
-            >
+            <div className="flex flex-wrap gap-4 pt-7 text-[14px] font-[700] font-jura">
               <button className="flex items-center gap-[6px] bg-blue-500/90 hover:bg-blue-600 text-white px-[18px] py-[7px] rounded-md shadow-[0_0_12px_rgba(59,130,246,0.4)] transition-all duration-300">
                 <Download size={16} /> Resume
               </button>
               <button className="flex items-center gap-2 border border-blue-400 px-[18px] py-[7px] rounded-md hover:bg-blue-400 hover:text-black shadow-[0_0_10px_rgba(59,130,246,0.3)] transition-all duration-300">
                 <SquareArrowOutUpRight size={15} /> Projects
               </button>
-            </motion.div>
-
-          </div>
+            </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
