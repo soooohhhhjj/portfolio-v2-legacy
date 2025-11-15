@@ -1,4 +1,4 @@
-// src/screens/Hero.tsx
+// src/screens/Hero.tsx - Remove framer-motion props
 import { useState, useEffect } from "react";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import "../components/Hero/hero.css";
@@ -32,7 +32,7 @@ export default function Hero() {
   const handleMouseLeave = () => setTargetPosition(10);
 
   return (
-    <section className="section-style">
+    <section className="w-full h-screen flex items-center justify-center bg-blue-950/20">
       <div className="section-content responsiveness flex flex-col min-h-screen cursor-default">
 
         {/* NAVBAR */}

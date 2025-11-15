@@ -8,21 +8,24 @@
   box-sizing: border-box;
 }
 
+/* #region Scroll Stuff */
 html, body, #root {
-  min-height: 100vh;
   overflow-x: hidden; /* Prevent horizontal scroll */
   overflow-y: auto; /* Allow vertical scroll */
 }
 
 /* Hide scrollbar while keeping scroll functionality */
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
 }
 
+html,
 body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+/* #endregion */
 
 @layer components {
   .section-style {

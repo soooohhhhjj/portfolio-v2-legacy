@@ -1,7 +1,11 @@
-// src/screens/Welcome.tsx
+// src/screens/Welcome.tsx - Remove framer-motion, just handle typing
 import { useEffect, useRef, useState } from "react";
 
-export default function Welcome() {
+interface WelcomeProps {
+  onAnimationComplete: () => void;
+}
+
+export default function Welcome({ onAnimationComplete }: WelcomeProps) {
   const text = "Welcome to My Portfolio Website.😊"; 
   const speed = 40;          
 
@@ -35,8 +39,18 @@ export default function Welcome() {
     };
   }, [text, speed]);
 
+  // Trigger slide up 500ms after typing is done
+  useEffect(() => {
+    if (isTypingDone) {
+      const timer = setTimeout(() => {
+        onAnimationComplete();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isTypingDone, onAnimationComplete]);
+
   return (
-    <section className="section-style">
+    <section className="w-full h-screen flex items-center justify-center">
       <div className="section-content center-div responsiveness text-center">
         <span className="font-jura text-[30px] tracking-[.09rem] font-[500] text-white">
           {displayed}
