@@ -11,6 +11,7 @@ module.exports = {
         audiowide: ['Audiowide', 'sans-serif'], 
         bruno: ['Bruno Ace SC', 'sans-serif'], 
         sansation: ['Sansation', 'sans-serif'], 
+        zalando: ['Zalando Sans Expanded', 'sans-serif'], 
       },
     },
   },

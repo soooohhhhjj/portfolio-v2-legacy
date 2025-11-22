@@ -1,5 +1,4 @@
 // src/screens/Hero.tsx
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import type { Easing } from "framer-motion";
@@ -12,44 +11,20 @@ interface HeroProps {
 }
 
 export default function Hero({ shouldAnimate }: HeroProps) {
-  const words = ["Building", "pixel-perfect", "Interactive", "Websites"];
-  const [gradientPosition, setGradientPosition] = useState(10);
-  const [targetPosition, setTargetPosition] = useState(10);
-
-  useEffect(() => {
-    let raf: number; 
-    const loop = () => {
-      setGradientPosition((prev) => {
-        const diff = targetPosition - prev;
-        const step = diff * 0.1;
-        return Math.abs(diff) < 0.1 ? targetPosition : prev + step;
-      });
-      raf = requestAnimationFrame(loop);
-    };
-    loop();
-    return () => cancelAnimationFrame(raf);
-  }, [targetPosition]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLSpanElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    setTargetPosition(((e.clientX - r.left) / r.width) * 100);
-  };
-
   return (
     <section className="w-full h-screen flex items-center justify-center">
       <div className="section-content responsiveness flex flex-col min-h-screen cursor-default">
 
         {/* NAVBAR - No animation, moves with container */}
         <nav className="w-full flex justify-between items-center py-6">
-          <h1 className="font-bruno text-[20px] font-[800] tracking-[2px] text-white drop-shadow-[0_0_1px_#0095ff]">
+          <h1 className="font-bruno text-[20px] font-[800] tracking-[2px] text-white">
             sohj.abe
           </h1>
           <div className="font-jura font-medium flex items-center gap-6 text-base">
-            <a href="#works" className="hover:text-blue-400 transition-colors">Works</a>
+            <a href="#about" className="hover:text-blue-400 transition-colors">Home</a>
+            <a href="#works" className="hover:text-blue-400 transition-colors">My Projects</a>
             <a href="#about" className="hover:text-blue-400 transition-colors">About Me</a>
-            <button className="border border-blue-400 px-4 py-1.5 rounded-md hover:bg-blue-400 hover:text-black transition-colors">
-              Contact
-            </button>
+            <a href="#about" className="hover:text-blue-400 transition-colors">Contact</a>
           </div>
         </nav>
 
@@ -76,7 +51,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: .9, ease: easeSmooth, delay: 0.05 }}
-              className="font-jura text-[18px] tracking-[.5px] text-gray-300 font-[700]"
+              className="font-jura text-[18px] tracking-[.5px] text-white font-[700]"
             >
               Hi, I'm <span>Carlo Joshua B. Abellera</span>, and I enjoy
             </motion.p>
@@ -86,27 +61,17 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1, ease: easeSmooth, delay: 0.1 }}
-              className="font-anta text-[56px] font-extrabold leading-tight text-gray-100 mt-2"
+              className="font-anta text-[58px] font-extrabold leading-tight tracking-tight "
             >
-              {words.map((word, idx) =>
-                word === "Interactive" ? (
-                  <span
-                    key={idx}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={() => setTargetPosition(10)}
-                    className="inline-block mr-2 bg-clip-text text-transparent"
-                    style={{
-                      backgroundImage: `radial-gradient(circle at ${gradientPosition}% 40%, rgb(236,72,153), rgb(139,92,246), rgb(59,130,246))`,
-                      WebkitBackgroundClip: "text",
-                    }}
-                  >
-                    {word}
-                  </span>
-                ) : (
-                  <span key={idx} className="inline-block mr-2 text-gray-100">{word}</span>
-                )
-              )}
+              <span className="inline-block text-white mt-2">
+                Building pixel-perfect <br/>
+                <span className="inline-block leading-tight">
+                  Interactive websites
+                </span>
+
+              </span>
             </motion.h2>
+
 
             {/* ROLE TEXT */}
             <motion.p
@@ -125,12 +90,12 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               transition={{ duration: 1.2, ease: easeSmooth, delay: 0.2 }}
               className="flex flex-wrap gap-4 pt-7 text-[14px] font-[700] font-jura"
             >
-              <button className="flex items-center gap-[6px] bg-blue-500/90 hover:bg-blue-600 text-white px-[18px] py-[7px] rounded-md shadow-[0_0_12px_rgba(59,130,246,0.4)] transition-all duration-300">
+              <button className="flex items-center gap-[6px] bg-white text-black px-[18px] py-[7px] rounded-md">
                 <Download size={16} /> Resume
               </button>
 
-              <button className="flex items-center gap-2 border border-blue-400 px-[18px] py-[7px] rounded-md hover:bg-blue-400 hover:text-black shadow-[0_0_10px_rgba(59,130,246,0.3)] transition-all duration-300">
-                <SquareArrowOutUpRight size={15} /> Projects
+              <button className="flex items-center gap-2 border border-white px-[18px] py-[7px] rounded-md">
+                <SquareArrowOutUpRight size={15} /> Explore
               </button>
             </motion.div>
 
