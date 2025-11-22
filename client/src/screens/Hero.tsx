@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import type { Easing } from "framer-motion";
 import "../components/Hero/hero.css";
+import HologramImage from "../components/Hologram/HologramImage";
 
 const easeSmooth: Easing = [0.12, 0.7, 0.63, .9];
 
@@ -31,17 +32,16 @@ export default function Hero({ shouldAnimate }: HeroProps) {
         {/* HERO BODY */}
         <div className="flex flex-col md:flex-row flex-1 items-start justify-between gap-12 mt-[25px]">
 
-          {/* PROFILE PIC */}
-          <motion.div
-            initial={{ y: "100vh" }}
-            animate={{ y: shouldAnimate ? 0 : "100vh" }}
-            transition={{ duration: .8, ease: easeSmooth, delay: 0 }}
-            className="relative flex-shrink-0 w-full max-w-[320px] rounded-[7px] overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.15)]"
-          >
-            <img src="/prof-pic.jpg" alt="Profile" className="w-full h-full object-cover object-top rounded-[7px]" />
-            <div className="absolute inset-0 rounded-[7px] border border-white/10 shadow-[inset_0_0_15px_rgba(255,255,255,0.15)]" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-70 rounded-xl" />
-          </motion.div>
+          {/* PROFILE PIC (3D Hologram) */}
+<motion.div
+  initial={{ y: "100vh" }}
+  animate={{ y: shouldAnimate ? 0 : "100vh" }}
+  transition={{ duration: .8, ease: easeSmooth, delay: 0 }}
+  className="relative flex-shrink-0 w-full max-w-[320px] h-[400px] rounded-[7px] overflow-hidden"
+>
+  <HologramImage src="/prof-pic.jpg" />
+</motion.div>
+
 
           {/* TEXT SIDE */}
           <div className="flex-1 max-w-[600px] text-left mt-2">
