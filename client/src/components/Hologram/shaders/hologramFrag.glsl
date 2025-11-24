@@ -6,7 +6,7 @@ void main() {
   vec2 uv = vUv;
 
   // Scanlines
-  float scan = sin((uv.y + uTime * 0.8) * 300.0) * 0.04;
+  float scan = sin((uv.y + uTime * 0.8) * 300.0) * 0.08;
 
   // RGB split
   float r = texture2D(uImage, uv + vec2(0.002, 0.0)).r;
@@ -22,7 +22,7 @@ void main() {
   color += scan;
 
   // Slight transparency for hologram look
-  float alpha = 0.88;
+  float alpha = 0.78;
 
   gl_FragColor = vec4(color, alpha);
 }

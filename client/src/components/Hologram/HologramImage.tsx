@@ -9,7 +9,7 @@ export default function HologramImage({ src }: { src: string }) {
   return (
     <Canvas
       gl={{ antialias: true }}
-      camera={{ position: [0, 0, 3] }}
+      camera={{ position: [0, 0, 1.5] }}
       className="w-full h-full"
     >
       <HologramMesh src={src} />
@@ -23,19 +23,16 @@ function HologramMesh({ src }: { src: string }) {
   const matRef = useRef<THREE.ShaderMaterial>(null!);
   const meshRef = useRef<THREE.Mesh>(null!);
 
+  // Removed swaying / rotating
   useFrame((state) => {
     if (matRef.current) {
       matRef.current.uniforms.uTime.value = state.clock.elapsedTime;
     }
-    if (meshRef.current) {
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.6) * 0.04;
-      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.04;
-    }
   });
 
   return (
-    <mesh ref={meshRef}>
-      <planeGeometry args={[2.2, 3.2]} />
+    <mesh ref={meshRef} rotation={[0, 0, 0]}>
+      <planeGeometry args={[1.85, 2.4]} />
       <shaderMaterial
         ref={matRef}
         uniforms={{

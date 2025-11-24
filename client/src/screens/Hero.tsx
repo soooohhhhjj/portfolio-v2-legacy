@@ -33,14 +33,14 @@ export default function Hero({ shouldAnimate }: HeroProps) {
         <div className="flex flex-col md:flex-row flex-1 items-start justify-between gap-12 mt-[25px]">
 
           {/* PROFILE PIC (3D Hologram) */}
-<motion.div
-  initial={{ y: "100vh" }}
-  animate={{ y: shouldAnimate ? 0 : "100vh" }}
-  transition={{ duration: .8, ease: easeSmooth, delay: 0 }}
-  className="relative flex-shrink-0 w-full max-w-[320px] h-[400px] rounded-[7px] overflow-hidden"
->
-  <HologramImage src="/prof-pic.jpg" />
-</motion.div>
+          <motion.div
+            initial={{ y: "100vh" }}
+            animate={{ y: shouldAnimate ? 0 : "100vh" }}
+            transition={{ duration: .8, ease: easeSmooth, delay: 0 }}
+            className="relative flex-shrink-0 w-full max-w-[320px] h-[400px] rounded-[7px] overflow-hidden"
+          >
+            <HologramImage src="/prof-pic.jpg" />
+          </motion.div>
 
 
           {/* TEXT SIDE */}
