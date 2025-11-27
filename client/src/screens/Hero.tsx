@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import type { Easing } from "framer-motion";
 import "../components/Hero/hero.css";
+import IconButton from "../components/ui/IconButton";
 
 const easeSmooth: Easing = [0.12, 0.7, 0.63, .9];
 
@@ -84,15 +85,11 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1.2, ease: easeSmooth, delay: 0.2 }}
-              className="flex flex-wrap gap-4 pt-7 text-[13px] tracking-[.5px] font-[500] font-jura"
+              className="flex flex-wrap gap-4 pt-7 text-[13px] tracking-[.2px] font-[700] font-jura"
             >
-              <button className="flex items-center gap-[6px] bg-white text-black px-[18px] py-[7px] rounded-md">
-                <Download size={16} /> Resume
-              </button>
+              <IconButton label="Resume" icon={Download} variant="solid" />
+              <IconButton label="Explore" icon={SquareArrowOutUpRight} variant="outline" />
 
-              <button className="flex items-center gap-2 border border-white px-[18px] py-[7px] rounded-md">
-                <SquareArrowOutUpRight size={15} /> Explore
-              </button>
             </motion.div>
 
           </div>
