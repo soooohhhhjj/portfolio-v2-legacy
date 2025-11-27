@@ -14,14 +14,14 @@ interface HeroProps {
 export default function Hero({ shouldAnimate }: HeroProps) {
   return (
     <section className="w-full h-screen flex items-center justify-center">
-      <div className="section-content responsiveness flex flex-col min-h-screen cursor-default">
+      <div className="section-content responsiveness flex flex-col min-h-screen cursor-default hero-text">
 
         {/* NAVBAR - No animation, moves with container */}
         <nav className="w-full flex justify-between items-center py-6">
-          <h1 className="font-bruno text-[20px] font-[800] tracking-[2px] text-white">
+          <h1 className="font-bruno text-[20px] font-[800] tracking-[2px]">
             sohj.abe
           </h1>
-          <div className="font-jura font-medium flex items-center gap-6 text-base">
+          <div className="font-kanit font-[400] flex items-center gap-6 text-base tracking-[.6px]">
             <a href="#about" className="hover:text-blue-400 transition-colors">Home</a>
             <a href="#works" className="hover:text-blue-400 transition-colors">My Projects</a>
             <a href="#about" className="hover:text-blue-400 transition-colors">About Me</a>
@@ -37,7 +37,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
             initial={{ y: "100vh" }}
             animate={{ y: shouldAnimate ? 0 : "100vh" }}
             transition={{ duration: .8, ease: easeSmooth, delay: 0 }}
-            className="relative flex-shrink-0 w-full max-w-[320px] h-[400px] rounded-[7px] overflow-hidden"
+            className="relative flex-shrink-0 w-full max-w-[320px] h-[400px] rounded-[5px] overflow-hidden"
           >
             <HologramImage src="/prof-pic.jpg" />
           </motion.div>
@@ -51,7 +51,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: .9, ease: easeSmooth, delay: 0.05 }}
-              className="font-jura text-[18px] tracking-[.5px] text-white font-[700]"
+              className="font-kanit text-[19px] tracking-[1px] font-[300] italic"
             >
               Hi, I'm <span>Carlo Joshua B. Abellera</span>, and I enjoy
             </motion.p>
@@ -61,15 +61,14 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1, ease: easeSmooth, delay: 0.1 }}
-              className="font-anta text-[58px] font-extrabold leading-tight tracking-tight "
+              className="font-anta text-[58px] font-extrabold leading-tight tracking-tight mt-2"
             >
-              <span className="inline-block text-white mt-2">
-                Building pixel-perfect <br/>
-                <span className="inline-block leading-tight">
-                  Interactive websites
-                </span>
+              <div className="inline-block">
+               <span>Building pixel-perfect </span> <br/>
+               <span className="gradient-text">Interactive </span>
+               <span>Websites </span>
 
-              </span>
+              </div>
             </motion.h2>
 
 
@@ -78,7 +77,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1.1, ease: easeSmooth, delay: 0.15 }}
-              className="font-bruno text-[23px] font-[700] tracking-[1px] text-white mt-12"
+              className="font-bruno text-[21px] font-[700] tracking-[1px] mt-12"
             >
               Full-Stack Developer
             </motion.p>

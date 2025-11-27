@@ -3,8 +3,25 @@
 @tailwind utilities;
 
 @layer components {
+  /* #region Hologram Stuff */
   .holo-flicker-once {
     animation: holoFlicker 0.15s linear;
+  }
+  /* #endregion */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+    -webkit-background-clip: text;
+    color: transparent;
+
+    /* Stroke */
+    -webkit-text-stroke: 1px #787e2621;
+
+    /* Soft glow shadow */
+    text-shadow:
+      0 0 30px rgba(102, 105, 62, 0.397);
+  }
+  .hero-text{
+    color: var(--c4);
   }
 }
 

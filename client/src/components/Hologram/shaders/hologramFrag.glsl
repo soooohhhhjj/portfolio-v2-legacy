@@ -5,24 +5,21 @@ uniform float uTime;
 void main() {
   vec2 uv = vUv;
 
-  // Scanlines
+  // Scanlines (brightness waves)
   float scan = sin((uv.y + uTime * 0.8) * 300.0) * 0.08;
 
-  // RGB split
-  float r = texture2D(uImage, uv + vec2(0.002, 0.0)).r;
+  // RGB split (subtle)
+  float r = texture2D(uImage, uv + vec2(0.0010, 0.0)).r;
   float g = texture2D(uImage, uv).g;
-  float b = texture2D(uImage, uv - vec2(0.002, 0.0)).b;
+  float b = texture2D(uImage, uv - vec2(0.0010, 0.0)).b;
 
   vec3 color = vec3(r, g, b);
 
-  // Blue hologram tint
-  color.b += 0.1;
-
-  // Hologram brightness
+  // Add scanline brightness
   color += scan;
 
-  // Slight transparency for hologram look
-  float alpha = 0.78;
+  // Soft hologram fade
+  float alpha = .95;
 
   gl_FragColor = vec4(color, alpha);
 }

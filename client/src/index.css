@@ -27,7 +27,15 @@ body {
 }
 /* #endregion */
 
+/* #region Global Styles */
 @layer components {
+  :root {
+    --c1: #ffffff;
+    --c2: #ffee00;
+    --c3: #000000;
+    --c4: #fff8b6;
+  }
+
   .section-style {
     @apply 
     w-full 
@@ -61,6 +69,8 @@ body {
     mx-auto;            /* center horizontally */
   }
 }
+/* #endregion */
+
 
 /* #region Custom blink animation */
 @keyframes blink {
@@ -81,3 +91,4 @@ body {
   animation: blink 1s step-start infinite;
 }
 /* #endregion */
+
