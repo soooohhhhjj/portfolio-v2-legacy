@@ -3,5 +3,15 @@
 @tailwind utilities;
 
 @layer components {
-
+    .hero-gradient-text{
+        background: linear-gradient(135deg, var(--c3), var(--c2), var(--c1));
+        -webkit-background-clip: text;
+        -webkit-text-stroke: 1px #787e2621;
+        color: transparent;
+        text-shadow: 0 0 30px rgba(102, 105, 62, 0.397);
+    }
+    .hero-text{
+        text-shadow: 0 0 30px rgba(102, 105, 62, 0.397);
+        -webkit-text-stroke: 1px #dae26b52;
+    }
 }

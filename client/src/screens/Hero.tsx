@@ -61,15 +61,11 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1, ease: easeSmooth, delay: 0.1 }}
-              className="font-anta text-[58px] font-extrabold leading-tight tracking-tight "
+              className="font-anta text-[58px] font-extrabold leading-tight tracking-tight inline-block mt-2"
             >
-              <span className="inline-block text-white mt-2">
-                Building pixel-perfect <br/>
-                <span className="inline-block leading-tight">
-                  Interactive websites
-                </span>
-
-              </span>
+              <span className="hero-text">Building pixel-perfect</span><br/>
+              <span className="hero-gradient-text">Interactive </span>
+              <span className="hero-text">Websites</span>
             </motion.h2>
 
 
@@ -88,7 +84,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1.2, ease: easeSmooth, delay: 0.2 }}
-              className="flex flex-wrap gap-4 pt-7 text-[14px] font-[700] font-jura"
+              className="flex flex-wrap gap-4 pt-7 text-[13px] tracking-[.5px] font-[500] font-jura"
             >
               <button className="flex items-center gap-[6px] bg-white text-black px-[18px] py-[7px] rounded-md">
                 <Download size={16} /> Resume
