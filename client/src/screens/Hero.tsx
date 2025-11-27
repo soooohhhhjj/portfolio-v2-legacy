@@ -78,7 +78,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1.1, ease: easeSmooth, delay: 0.15 }}
-              className="font-bruno text-[23px] font-[700] tracking-[1px] text-white mt-12"
+              className="font-bruno text-[21px] font-[700] tracking-[1px] text-white mt-12"
             >
               Full-Stack Developer
             </motion.p>
