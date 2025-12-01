@@ -23,11 +23,11 @@ export default function Hero({ shouldAnimate }: HeroProps) {
           <h1 className="font-bruno text-[20px] font-[500] tracking-[2px] text-white icon-role-text">
             sohj.abe
           </h1>
-          <div className="font-jura font-medium flex items-center gap-6 text-base">
-            <a href="#about" className="hover:text-blue-400 transition-colors">Home</a>
-            <a href="#works" className="hover:text-blue-400 transition-colors">My Projects</a>
-            <a href="#about" className="hover:text-blue-400 transition-colors">About Me</a>
-            <a href="#about" className="hover:text-blue-400 transition-colors">Contact</a>
+          <div className="nav-links font-jura font-medium flex items-center gap-6">
+            <a href="#about" className="nav-link">Home</a>
+            <a href="#works" className="nav-link">My Projects</a>
+            <a href="#about" className="nav-link">About Me</a>
+            <a href="#about" className="nav-link">Contact</a>
           </div>
         </nav>
 
