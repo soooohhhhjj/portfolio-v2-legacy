@@ -39,8 +39,8 @@
 
     /* #region Icon/Role Text Stylying */
     .icon-role-text{
-        text-shadow: 0 0 20px rgba(230, 238, 123, 0.397);
-        -webkit-text-stroke: 1px #c9ce82de;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.479);
+        -webkit-text-stroke: 1px #fdf5c6de;
     }
     /* #endregion */
 
@@ -149,9 +149,7 @@
     /* #endregion */
 
 
-    /* =========================================
-       NAV LINK STYLING + GRADIENT + GLOW
-    ========================================= */
+    /* #region Navlink Styling */
     .nav-link {
         position: relative;
         padding-bottom: 2px;
