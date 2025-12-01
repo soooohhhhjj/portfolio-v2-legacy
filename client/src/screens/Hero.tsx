@@ -1,22 +1,24 @@
 // src/screens/Hero.tsx
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import type { Easing } from "framer-motion";
 import "../components/Hero/hero.css";
-import IconButton from "../components/ui/IconButton";
 
-const easeSmooth: Easing = [0.12, 0.7, 0.63, .9];
+const easeSmooth: Easing = [0.12, 0.7, 0.63, 0.9];
 
 interface HeroProps {
   shouldAnimate: boolean;
 }
 
 export default function Hero({ shouldAnimate }: HeroProps) {
+  const [outlineHover, setOutlineHover] = useState(false);
+
   return (
     <section className="w-full h-screen flex items-center justify-center">
       <div className="section-content responsiveness flex flex-col min-h-screen cursor-default">
 
-        {/* NAVBAR - No animation, moves with container */}
+        {/* NAVBAR */}
         <nav className="w-full flex justify-between items-center py-6">
           <h1 className="font-bruno text-[20px] font-[800] tracking-[2px] text-white">
             sohj.abe
@@ -69,7 +71,6 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               <span className="hero-text">Websites</span>
             </motion.h2>
 
-
             {/* ROLE TEXT */}
             <motion.p
               initial={{ y: "100vh" }}
@@ -85,10 +86,26 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1.2, ease: easeSmooth, delay: 0.2 }}
-              className="flex flex-wrap gap-4 pt-7 text-[13px] tracking-[.2px] font-[700] font-jura"
+              className="btn-pair flex flex-wrap gap-4 pt-7 text-[12px] tracking-[.2px] font-[700] font-jura"
             >
-              <IconButton label="Resume" icon={Download} variant="solid" />
-              <IconButton label="Explore" icon={SquareArrowOutUpRight} variant="outline" />
+
+              {/* SOLID BUTTON */}
+              <button
+                className={`hero-btn hero-btn-solid ${outlineHover ? "btn-drain" : ""}`}
+              >
+                <Download size={13} />
+                Resume
+              </button>
+
+              {/* OUTLINE BUTTON */}
+              <button
+                className="hero-btn hero-btn-outline"
+                onMouseEnter={() => setOutlineHover(true)}
+                onMouseLeave={() => setOutlineHover(false)}
+              >
+                <SquareArrowOutUpRight size={13} />
+                Explore
+              </button>
 
             </motion.div>
 
@@ -98,3 +115,4 @@ export default function Hero({ shouldAnimate }: HeroProps) {
     </section>
   );
 }
+
