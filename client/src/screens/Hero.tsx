@@ -20,7 +20,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
 
         {/* NAVBAR */}
         <nav className="w-full flex justify-between items-center py-6">
-          <h1 className="font-bruno text-[20px] font-[800] tracking-[2px] text-white">
+          <h1 className="font-bruno text-[20px] font-[500] tracking-[2px] text-white icon-role-text">
             sohj.abe
           </h1>
           <div className="font-jura font-medium flex items-center gap-6 text-base">
@@ -76,7 +76,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
               initial={{ y: "100vh" }}
               animate={{ y: shouldAnimate ? 0 : "100vh" }}
               transition={{ duration: 1.1, ease: easeSmooth, delay: 0.15 }}
-              className="font-bruno text-[21px] font-[700] tracking-[1px] text-white mt-12"
+              className="font-bruno text-[21px] font-[500] tracking-[1px] text-white mt-12 icon-role-text"
             >
               Full-Stack Developer
             </motion.p>

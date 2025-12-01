@@ -16,7 +16,7 @@
 
 @layer components {
 
-    /* HERO TEXT */
+    /* #region Hero Text Styling */
     .hero-gradient-text{
         background: linear-gradient(135deg, var(--c3), var(--c2), var(--c1));
         -webkit-background-clip: text;
@@ -29,8 +29,16 @@
         text-shadow: 0 0 30px rgba(102, 105, 62, 0.397);
         -webkit-text-stroke: 1px #dae26b52;
     }
+    /* #endregion */
 
-    /* BASE BUTTON */
+    /* #region Icon/Role Text Stylying */
+    .icon-role-text{
+        text-shadow: 0 0 20px rgba(230, 238, 123, 0.397);
+        -webkit-text-stroke: 1px #c9ce82de;
+    }
+    /* #endregion */
+
+    /* #region Button Styling */
     .hero-btn {
         @apply flex items-center gap-2 px-5 py-2 rounded-[4px] font-jura font-[700] tracking-[.2px];
         position: relative;
@@ -38,10 +46,6 @@
         isolation: isolate;
     }
 
-    /* ======================================================
-       SOLID BUTTON (NEW DESIGN)
-       Uses sliding gradient in ::before, just like outline.
-    ======================================================= */
     .hero-btn-solid {
         position: relative;
         color: #1a1a1a;
@@ -82,10 +86,7 @@
         filter: none !important;
     }
 
-    /* ======================================================
-       OUTLINE BUTTON (same as before)
-       Gradient slides IN on hover.
-    ======================================================= */
+    /* Outline Button*/
     .hero-btn-outline {
         position: relative;
         border: 1px solid var(--btn-c2);
@@ -139,6 +140,7 @@
     .btn-pair .hero-btn-outline:hover + .hero-btn-solid {
         filter: none !important;
     }
+    /* #endregion */
 
 
 }
