@@ -1,5 +1,5 @@
 // src/screens/Hero.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import type { Easing } from "framer-motion";
@@ -13,6 +13,17 @@ interface HeroProps {
 
 export default function Hero({ shouldAnimate }: HeroProps) {
   const [outlineHover, setOutlineHover] = useState(false);
+  const [runFlicker, setRunFlicker] = useState(false);
+
+  useEffect(() => {
+    if (!shouldAnimate) return;
+
+    const timer = setTimeout(() => {
+      setRunFlicker(true);
+    }, 1600); // matches your hero animation end timing
+
+    return () => clearTimeout(timer);
+  }, [shouldAnimate]);
 
   return (
     <section className="w-full h-screen flex items-center justify-center">
@@ -20,8 +31,15 @@ export default function Hero({ shouldAnimate }: HeroProps) {
 
         {/* NAVBAR */}
         <nav className="w-full flex justify-between items-center py-6">
-          <h1 className="font-bruno text-[20px] font-[500] tracking-[2px] text-white icon-role-text">
-            sohj.abe
+          <h1 className="web-name font-bruno text-[20px] font-[500] tracking-[2px] text-white icon-role-text">
+            {"sohj.abe".split("").map((char, i) => (
+              <span
+                key={i}
+                className={`char-${i} ${runFlicker ? "flicker-once" : ""}`}
+              >
+                {char}
+              </span>
+            ))}
           </h1>
           <div className="nav-links font-jura font-medium flex items-center gap-6">
             <a href="#about" className="nav-link">Home</a>

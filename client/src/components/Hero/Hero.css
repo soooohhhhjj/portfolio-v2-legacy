@@ -44,6 +44,62 @@
     }
     /* #endregion */
 
+    /* #region Icon Flicker Animation */
+    @keyframes navbar-flicker-strong {
+        0% { opacity: 1; }
+        10% { opacity: 0; }
+        18% { opacity: 0.4; }
+        26% { opacity: 0; }
+        35% { opacity: 0.7; }
+        50% { opacity: 0.3; }
+        65% { opacity: 1; }
+        78% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes navbar-flicker-medium {
+        0% { opacity: 1; }
+        20% { opacity: 0.3; }
+        40% { opacity: 1; }
+        60% { opacity: 0.5; }
+        80% { opacity: 1; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes navbar-flicker-light {
+        0% { opacity: 1; }
+        50% { opacity: 0.7; }
+        100% { opacity: 1; }
+    }
+
+
+    .char-0.flicker-once { 
+        animation: navbar-flicker-strong 0.55s linear;
+        animation-delay: 0.05s;
+    }
+
+    .char-2.flicker-once {
+        animation: navbar-flicker-light 0.4s linear;
+        animation-delay: 0.12s;
+    }
+
+    .char-4.flicker-once {
+        animation: navbar-flicker-medium 0.5s linear;
+        animation-delay: 0.22s;
+    }
+
+    .char-6.flicker-once {
+        animation: navbar-flicker-strong 0.6s linear;
+        animation-delay: 0.35s;
+    }
+
+    .char-7.flicker-once {
+        animation: navbar-flicker-light 0.45s linear;
+        animation-delay: 0.41s;
+    }
+
+    /* #endregion */
+
     /* #region Button Styling */
     .hero-btn {
         @apply flex items-center gap-2 px-5 py-2 rounded-[4px] font-jura font-[700] tracking-[.2px];
@@ -180,7 +236,6 @@
         filter: none !important;
     }
     /* #endregion */
-
 
     /* #region Navlink Styling */
     .nav-link {
