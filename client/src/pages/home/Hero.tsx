@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import type { Easing } from "framer-motion";
-import "../components/Hero/hero.css";
-import GlassFrame from "../components/ui/GlassCard";
+import "../../components/Hero/hero.css";
+import GlassFrame from "../../components/ui/GlassCard";
 
 const easeSmooth: Easing = [0.12, 0.7, 0.63, 0.9];
 
