@@ -27,11 +27,17 @@ export default function Hero({ shouldAnimate }: HeroProps) {
   }, [shouldAnimate]);
 
   return (
-    <section className="w-full h-screen flex items-center justify-center">
-      <div className="section-content responsiveness flex flex-col min-h-screen cursor-default">
+    <section className="section-style">
+      <div className="section-content responsiveness flex flex-col cursor-default">
 
         {/* NAVBAR */}
-        <nav className="w-full flex justify-between items-center py-6">
+        <motion.nav
+          initial={{ y: "100vh" }}
+          animate={{ y: shouldAnimate ? 0 : "100vh" }}
+          transition={{ duration: 0.6, ease: easeSmooth, delay: 0 }}
+          className="w-full flex justify-between items-center py-6"
+        >
+
           <h1 className="web-name font-bruno text-[20px] font-[500] tracking-[2px] text-white icon-role-text">
             {"sohj.abe".split("").map((char, i) => (
               <span
@@ -48,7 +54,7 @@ export default function Hero({ shouldAnimate }: HeroProps) {
             <a href="#about" className="nav-link">About Me</a>
             <a href="#about" className="nav-link">Contact</a>
           </div>
-        </nav>
+        </motion.nav>
 
         {/* HERO BODY */}
         <div className="flex flex-col md:flex-row flex-1 items-start justify-between gap-12 mt-[25px]">

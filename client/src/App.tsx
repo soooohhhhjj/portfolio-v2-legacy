@@ -15,21 +15,26 @@ export default function App() {
     document.documentElement.style.overflow = "hidden";
   }, []);
 
-  // Trigger slide-up animation
+  // Handles Welcome finishing its animation
   const handleAnimationComplete = () => {
     setSlideUp(true);
   };
 
   return (
     <main className="relative w-full min-h-screen overflow-hidden text-white">
-      {/* Background */}
+
+      {/* ===========================
+          BACKGROUND STARFIELD
+      ============================ */}
       <div className="fixed inset-0 -z-10">
         <Starfield mode="normal" />
       </div>
 
-      {/* Sliding container */}
+      {/* ===========================
+          ONLY WELCOME SLIDES UP
+      ============================ */}
       <motion.div
-        className="relative w-full will-change-transform"
+        className="absolute top-0 left-0 w-full h-screen will-change-transform"
         initial={{ y: 0 }}
         animate={{ y: slideUp ? "-100vh" : 0 }}
         transition={{
@@ -37,16 +42,21 @@ export default function App() {
           ease: [0.12, 0.7, 0.63, 0.9],
         }}
         onAnimationComplete={() => {
-          // Only unlock scroll AFTER slide-up finishes
           if (slideUp) {
             document.documentElement.style.overflow = "auto";
           }
         }}
       >
         <Welcome onAnimationComplete={handleAnimationComplete} />
+      </motion.div>
+
+      {/* ===========================
+          NORMAL PAGE SECTIONS
+      ============================ */}
+      <div className="relative z-10">
         <Hero shouldAnimate={slideUp} />
         <Journey />
-      </motion.div>
+      </div>
     </main>
   );
 }
