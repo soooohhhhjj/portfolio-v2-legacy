@@ -51,33 +51,37 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d", { alpha: false })!;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
 
-    const initStars = () => {
+    // dynamically update size
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
       layersRef.current = [
-        { stars: generateStars(100, width, height, [0.5, 0.8], [0.05, 0.15]), speed: 0.2 },
-        { stars: generateStars(30, width, height, [0.8, 1.3], [0.1, 0.2]), speed: 0.4 },
-        { stars: generateStars(15, width, height, [1.3, 1.6], [0.3, 0.5]), speed: 0.6 },
+        { stars: generateStars(100, canvas.width, canvas.height, [0.5, 0.8], [0.05, 0.15]), speed: 0.2 },
+        { stars: generateStars(30, canvas.width, canvas.height, [0.8, 1.3], [0.1, 0.2]), speed: 0.4 },
+        { stars: generateStars(15, canvas.width, canvas.height, [1.3, 1.6], [0.3, 0.5]), speed: 0.6 },
       ];
     };
 
-    initStars();
+    resizeCanvas();
 
     const animate = () => {
+      requestAnimationFrame(animate);
+
+      const width = canvas.width;
+      const height = canvas.height;
+
       timeRef.current += 0.016;
 
-      // Pure black background
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#000";
       ctx.fillRect(0, 0, width, height);
 
       layersRef.current.forEach(({ stars, speed }) => {
         stars.forEach((star) => {
-          // Subtle twinkle
           const twinkle = Math.sin(timeRef.current * star.twinkleSpeed + star.twinkleOffset) * 0.2 + 0.8;
           const finalOpacity = star.opacity * twinkle;
 
-          // Plain white star - no glow
           ctx.fillStyle = `rgba(255, 255, 255, ${finalOpacity})`;
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
@@ -102,20 +106,17 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
           if (star.y > height) star.y = 0;
         });
       });
-
-      requestAnimationFrame(animate);
     };
 
     animate();
 
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      initStars();
-    };
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("orientationchange", resizeCanvas);
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("orientationchange", resizeCanvas);
+    };
   }, []);
 
   return (
