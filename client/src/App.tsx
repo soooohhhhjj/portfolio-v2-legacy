@@ -55,7 +55,7 @@ export default function App() {
       ============================ */}
       <div className="relative z-10">
         <Hero shouldAnimate={slideUp} />
-        <Journey />
+        <Journey shouldShow={slideUp} />
       </div>
     </main>
   );
