@@ -38,37 +38,44 @@ const cards = [
 
 export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
   return (
-    <motion.div
-      initial={{ y: "100vh" }}
-      animate={{ y: shouldAnimate ? 0 : "100vh" }}
-      transition={{
-        duration: 1,
-        ease: easeSmooth,
-        delay: 0.3,
-      }}
-      className="w-full"
-    >
+    <div className="w-full">
       {/* SECTION LABEL */}
-      <div className="mb-5">
-        <p className="font-bruno text-[13px] tracking-[1px] uppercase opacity-">
+      <motion.div
+        initial={{ y: "100vh" }}
+        animate={{ y: shouldAnimate ? 0 : "100vh" }}
+        transition={{
+          duration: 0.7,
+          ease: easeSmooth,
+          delay: 0.25,
+        }}
+        className="mb-5"
+      >
+        <p className="font-bruno text-[13px] tracking-[1px] uppercase text-white/80">
           Highlights
         </p>
-      </div>
+      </motion.div>
 
       {/* CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         {cards.map((card, i) => {
           const Icon = card.icon;
 
           return (
-            <div
+            <motion.div
               key={i}
+              initial={{ y: "100vh" }}
+              animate={{ y: shouldAnimate ? 0 : "100vh" }}
+              transition={{
+                duration: 0.7,
+                ease: easeSmooth,
+                delay: 0.35 + i * 0.12,
+              }}
               className="
                 relative overflow-hidden
                 rounded-[5px]
                 p-6
+                w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]
                 flex flex-col items-start gap-3
-                transition-all duration-300
               "
               style={{
                 boxShadow: "0 0 30px #ffffff1a",
@@ -100,10 +107,7 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
               />
 
               {/* ICON */}
-              <Icon
-                className="relative z-10 w-6 h-6"
-                color="#ffffffcc"
-              />
+              <Icon className="relative z-10 w-6 h-6" color="#ffffffcc" />
 
               {/* TITLE */}
               <h3 className="relative z-10 font-bruno text-[14px] tracking-[1px] text-white">
@@ -114,10 +118,10 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
               <p className="relative z-10 font-jura text-[13px] leading-relaxed text-[#ffffffbf]">
                 {card.subtitle}
               </p>
-            </div>
+            </motion.div>
           );
         })}
       </div>
-    </motion.div>
+    </div>
   );
 }
