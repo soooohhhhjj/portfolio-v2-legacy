@@ -11,9 +11,11 @@ const easeSmooth: Easing = [0.12, 0.7, 0.63, 0.9];
 
 interface HeroProps {
   shouldAnimate: boolean;
+  onAnimationsComplete: () => void;
 }
 
-export default function Hero({ shouldAnimate }: HeroProps) {
+
+export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps) {
   const [outlineHover, setOutlineHover] = useState(false);
   const [runFlicker, setRunFlicker] = useState(false);
 
@@ -26,6 +28,19 @@ export default function Hero({ shouldAnimate }: HeroProps) {
 
     return () => clearTimeout(timer);
   }, [shouldAnimate]);
+
+  useEffect(() => {
+    if (!shouldAnimate) return;
+
+    const totalHeroAnimationTime = 1600; 
+
+    const timer = setTimeout(() => {
+      onAnimationsComplete();
+    }, totalHeroAnimationTime);
+
+    return () => clearTimeout(timer);
+  }, [shouldAnimate, onAnimationsComplete]);
+
 
   return (
     <section className="section-style">

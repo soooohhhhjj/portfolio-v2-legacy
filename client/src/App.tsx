@@ -6,44 +6,106 @@ import Welcome from "./pages/home/Welcome";
 import Hero from "./pages/home/Hero";
 import Journey from "./pages/home/Journey";
 import Lenis from "@studio-freight/lenis";
+import { setScrollVelocity } from "./lib/scrollState";
 
 export default function App() {
   const [slideUp, setSlideUp] = useState(false);
+  const [heroDone, setHeroDone] = useState(false);
 
-  // Lock scroll on initial load + reset scroll position
+  /* ===========================
+     SCROLL LOCK HELPERS
+  ============================ */
+  const lockScroll = () => {
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+  };
+
+  const unlockScroll = () => {
+    document.documentElement.style.overflow = "auto";
+    document.body.style.overflow = "auto";
+  };
+
+  /* ===========================
+     INITIAL LOAD — HARD LOCK
+  ============================ */
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.documentElement.style.overflow = "hidden";
+    lockScroll();
   }, []);
 
-  // Handles Welcome finishing its animation
+  /* ===========================
+     WELCOME FINISH
+  ============================ */
   const handleAnimationComplete = () => {
     setSlideUp(true);
   };
 
+  /* ===========================
+     UNLOCK SCROLL ONLY WHEN
+     WELCOME + HERO ARE DONE
+  ============================ */
   useEffect(() => {
+    if (slideUp && heroDone) {
+      unlockScroll();
+    }
+  }, [slideUp, heroDone]);
+
+  /* ===========================
+     BLOCK WHEEL / TOUCH / KEYS
+  ============================ */
+  useEffect(() => {
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    if (!slideUp || !heroDone) {
+      window.addEventListener("wheel", preventScroll, { passive: false });
+      window.addEventListener("touchmove", preventScroll, { passive: false });
+      window.addEventListener("keydown", preventScroll, { passive: false });
+    }
+
+    return () => {
+      window.removeEventListener("wheel", preventScroll);
+      window.removeEventListener("touchmove", preventScroll);
+      window.removeEventListener("keydown", preventScroll);
+    };
+  }, [slideUp, heroDone]);
+
+  /* ===========================
+     LENIS — START LAST
+  ============================ */
+  useEffect(() => {
+    if (!slideUp || !heroDone) return;
+
     const lenis = new Lenis({
-      lerp: 0.1,       // lower = smoother (0.08–0.12 sweet spot)
+      lerp: 0.1,
       wheelMultiplier: 1,
       touchMultiplier: 1,
     });
 
-    function raf(time: number) {
+    let lastScroll = window.scrollY;
+
+    const raf = (time: number) => {
       lenis.raf(time);
+
+      const current = window.scrollY;
+      const delta = current - lastScroll;
+      lastScroll = current;
+
+      setScrollVelocity(Math.max(-30, Math.min(30, delta)));
+
       requestAnimationFrame(raf);
-    }
+    };
 
     requestAnimationFrame(raf);
 
     return () => {
       lenis.destroy();
     };
-  }, []);
-
+  }, [slideUp, heroDone]);
 
   return (
     <main className="relative w-full min-h-screen overflow-hidden text-white">
-
       {/* ===========================
           BACKGROUND STARFIELD
       ============================ */}
@@ -52,7 +114,7 @@ export default function App() {
       </div>
 
       {/* ===========================
-          ONLY WELCOME SLIDES UP
+          WELCOME SLIDE UP
       ============================ */}
       <motion.div
         className="absolute top-0 left-0 w-full h-screen will-change-transform"
@@ -62,20 +124,18 @@ export default function App() {
           duration: 1,
           ease: [0.12, 0.7, 0.63, 0.9],
         }}
-        onAnimationComplete={() => {
-          if (slideUp) {
-            document.documentElement.style.overflow = "auto";
-          }
-        }}
       >
         <Welcome onAnimationComplete={handleAnimationComplete} />
       </motion.div>
 
       {/* ===========================
-          NORMAL PAGE SECTIONS
+          MAIN CONTENT
       ============================ */}
       <div className="relative z-10">
-        <Hero shouldAnimate={slideUp} />
+        <Hero
+          shouldAnimate={slideUp}
+          onAnimationsComplete={() => setHeroDone(true)}
+        />
         <Journey shouldShow={slideUp} />
       </div>
     </main>

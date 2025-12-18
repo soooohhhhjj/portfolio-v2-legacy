@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { scrollVelocity } from "../lib/scrollState";
 
 interface Star {
   x: number;
@@ -22,17 +23,21 @@ function generateStars(
   speedRange: [number, number]
 ): Star[] {
   const stars: Star[] = [];
+
   for (let i = 0; i < count; i++) {
     stars.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      size: Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0],
-      speed: Math.random() * (speedRange[1] - speedRange[0]) + speedRange[0],
+      size:
+        Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0],
+      speed:
+        Math.random() * (speedRange[1] - speedRange[0]) + speedRange[0],
       opacity: Math.random() * 0.5 + 0.5,
       twinkleSpeed: Math.random() * 0.015 + 0.005,
       twinkleOffset: Math.random() * Math.PI * 2,
     });
   }
+
   return stars;
 }
 
@@ -41,6 +46,7 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
   const modeRef = useRef(mode);
   const layersRef = useRef<{ stars: Star[]; speed: number }[]>([]);
   const timeRef = useRef(0);
+  const scrollInfluenceRef = useRef(0);
 
   useEffect(() => {
     modeRef.current = mode;
@@ -51,16 +57,43 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d", { alpha: false })!;
+    ctx.imageSmoothingEnabled = true;
 
-    // dynamically update size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
       layersRef.current = [
-        { stars: generateStars(100, canvas.width, canvas.height, [0.5, 0.8], [0.05, 0.15]), speed: 0.2 },
-        { stars: generateStars(30, canvas.width, canvas.height, [0.8, 1.3], [0.1, 0.2]), speed: 0.4 },
-        { stars: generateStars(15, canvas.width, canvas.height, [1.3, 1.6], [0.3, 0.5]), speed: 0.6 },
+        {
+          stars: generateStars(
+            120,
+            canvas.width,
+            canvas.height,
+            [0.5, 0.8],
+            [0.05, 0.15]
+          ),
+          speed: 0.25,
+        },
+        {
+          stars: generateStars(
+            50,
+            canvas.width,
+            canvas.height,
+            [0.8, 1.3],
+            [0.1, 0.25]
+          ),
+          speed: 0.45,
+        },
+        {
+          stars: generateStars(
+            25,
+            canvas.width,
+            canvas.height,
+            [1.3, 1.8],
+            [0.3, 0.55]
+          ),
+          speed: 0.7,
+        },
       ];
     };
 
@@ -74,22 +107,48 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
 
       timeRef.current += 0.016;
 
-      ctx.fillStyle = "#000";
+      // ease scroll influence (prevents snapping)
+      scrollInfluenceRef.current +=
+        (scrollVelocity - scrollInfluenceRef.current) * 0.08;
+
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
       layersRef.current.forEach(({ stars, speed }) => {
         stars.forEach((star) => {
-          const twinkle = Math.sin(timeRef.current * star.twinkleSpeed + star.twinkleOffset) * 0.2 + 0.8;
+          // twinkle
+          const twinkle =
+            Math.sin(
+              timeRef.current * star.twinkleSpeed + star.twinkleOffset
+            ) *
+              0.2 +
+            0.8;
+
           const finalOpacity = star.opacity * twinkle;
 
-          ctx.fillStyle = `rgba(255, 255, 255, ${finalOpacity})`;
+          ctx.fillStyle = `rgba(255,255,255,${finalOpacity})`;
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
           ctx.fill();
 
-          let dx = -0.5 * speed;
-          let dy = 0.5 * speed;
+          // idle motion
+          const idleDx = -0.5 * speed;
+          const idleDy = 0.5 * speed;
 
+          // scroll-driven motion (depth aware)
+          const scrollForce =
+            -scrollInfluenceRef.current * speed * 0.6;
+
+          let dx = idleDx;
+          let dy = idleDy;
+
+          // override while scrolling
+          if (Math.abs(scrollInfluenceRef.current) > 0.1) {
+            dx = 0;
+            dy = scrollForce;
+          }
+
+          // mode overrides
           if (modeRef.current === "paused") {
             dx = dy = 0;
           } else if (modeRef.current === "vertical") {
@@ -100,6 +159,7 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
           star.x += dx;
           star.y += dy;
 
+          // wrap around edges
           if (star.x < 0) star.x = width;
           if (star.x > width) star.x = 0;
           if (star.y < 0) star.y = height;
@@ -122,7 +182,7 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full -z-50"
+      className="fixed inset-0 -z-50"
     />
   );
 }
