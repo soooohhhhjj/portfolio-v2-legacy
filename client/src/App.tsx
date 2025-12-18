@@ -11,6 +11,8 @@ import { setScrollVelocity } from "./lib/scrollState";
 export default function App() {
   const [slideUp, setSlideUp] = useState(false);
   const [heroDone, setHeroDone] = useState(false);
+  const [starMode, setStarMode] =
+    useState<"normal" | "cinematic">("normal");
 
   /* ===========================
      SCROLL LOCK HELPERS
@@ -37,6 +39,7 @@ export default function App() {
      WELCOME FINISH
   ============================ */
   const handleAnimationComplete = () => {
+    setStarMode("cinematic"); // ⭐ trigger star slide
     setSlideUp(true);
   };
 
@@ -47,6 +50,7 @@ export default function App() {
   useEffect(() => {
     if (slideUp && heroDone) {
       unlockScroll();
+      setStarMode("normal"); // ⭐ return stars to normal
     }
   }, [slideUp, heroDone]);
 
@@ -124,16 +128,12 @@ export default function App() {
 
   return (
     <main className="relative w-full min-h-screen overflow-hidden text-white">
-      {/* ===========================
-          BACKGROUND STARFIELD
-      ============================ */}
+      {/* BACKGROUND STARFIELD */}
       <div className="fixed inset-0 -z-10">
-        <Starfield mode="normal" />
+        <Starfield mode={starMode} />
       </div>
 
-      {/* ===========================
-          WELCOME SLIDE UP
-      ============================ */}
+      {/* WELCOME SLIDE UP */}
       <motion.div
         className="absolute top-0 left-0 w-full h-screen will-change-transform"
         initial={{ y: 0 }}
@@ -146,9 +146,7 @@ export default function App() {
         <Welcome onAnimationComplete={handleAnimationComplete} />
       </motion.div>
 
-      {/* ===========================
-          MAIN CONTENT
-      ============================ */}
+      {/* MAIN CONTENT */}
       <div className="relative z-10">
         <Hero
           shouldAnimate={slideUp}

@@ -12,7 +12,7 @@ interface Star {
 }
 
 interface StarfieldProps {
-  mode?: "normal" | "vertical" | "paused";
+  mode?: "normal" | "vertical" | "paused" | "cinematic";
 }
 
 function generateStars(
@@ -47,9 +47,13 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
   const layersRef = useRef<{ stars: Star[]; speed: number }[]>([]);
   const timeRef = useRef(0);
   const scrollInfluenceRef = useRef(0);
+  const cinematicVelocityRef = useRef(0);
 
   useEffect(() => {
     modeRef.current = mode;
+    if (mode === "cinematic") {
+      cinematicVelocityRef.current = -12; // initial upward push for cinematic welcome transition
+    }
   }, [mode]);
 
   useEffect(() => {
@@ -111,6 +115,14 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
       scrollInfluenceRef.current +=
         (scrollVelocity - scrollInfluenceRef.current) * 0.08;
 
+      cinematicVelocityRef.current *= 0.98; // cinematic easing: stars slide up fast, then smoothly slow before returning to normal motion
+
+      // prevent hard stall
+      if (Math.abs(cinematicVelocityRef.current) < 0.05) {
+        cinematicVelocityRef.current = 0;
+      }
+
+
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
@@ -124,26 +136,24 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
               0.2 +
             0.8;
 
-          const finalOpacity = star.opacity * twinkle;
-
-          ctx.fillStyle = `rgba(255,255,255,${finalOpacity})`;
+          ctx.fillStyle = `rgba(255,255,255,${
+            star.opacity * twinkle
+          })`;
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
           ctx.fill();
 
-          // idle motion
-          const idleDx = -0.5 * speed;
-          const idleDy = 0.5 * speed;
+          let dx = -0.5 * speed;
+          let dy = 0.5 * speed;
 
           // scroll-driven motion (depth aware)
           const scrollForce =
             -scrollInfluenceRef.current * speed * 0.6;
 
-          let dx = idleDx;
-          let dy = idleDy;
-
-          // override while scrolling
-          if (Math.abs(scrollInfluenceRef.current) > 0.1) {
+          if (modeRef.current === "cinematic") {
+            dx = 0;
+            dy = cinematicVelocityRef.current * speed;
+          } else if (Math.abs(scrollInfluenceRef.current) > 0.1) {
             dx = 0;
             dy = scrollForce;
           }
