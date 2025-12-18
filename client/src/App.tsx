@@ -5,6 +5,7 @@ import Starfield from "./components/Starfield";
 import Welcome from "./pages/home/Welcome";
 import Hero from "./pages/home/Hero";
 import Journey from "./pages/home/Journey";
+import Lenis from "@studio-freight/lenis";
 
 export default function App() {
   const [slideUp, setSlideUp] = useState(false);
@@ -19,6 +20,26 @@ export default function App() {
   const handleAnimationComplete = () => {
     setSlideUp(true);
   };
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      lerp: 0.1,       // lower = smoother (0.08–0.12 sweet spot)
+      wheelMultiplier: 1,
+      touchMultiplier: 1,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
 
   return (
     <main className="relative w-full min-h-screen overflow-hidden text-white">
