@@ -55,6 +55,22 @@ export default function App() {
   ============================ */
   useEffect(() => {
     const preventScroll = (e: Event) => {
+      // only block scroll-related keys
+      if (
+        e instanceof KeyboardEvent &&
+        ![
+          "ArrowUp",
+          "ArrowDown",
+          "PageUp",
+          "PageDown",
+          " ",
+          "Home",
+          "End",
+        ].includes(e.key)
+      ) {
+        return;
+      }
+
       e.preventDefault();
     };
 
@@ -84,6 +100,7 @@ export default function App() {
     });
 
     let lastScroll = window.scrollY;
+    let rafId: number;
 
     const raf = (time: number) => {
       lenis.raf(time);
@@ -94,12 +111,13 @@ export default function App() {
 
       setScrollVelocity(Math.max(-30, Math.min(30, delta)));
 
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     };
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, [slideUp, heroDone]);
