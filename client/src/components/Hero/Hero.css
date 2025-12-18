@@ -17,7 +17,10 @@
     --navlink-c2: #dfd24d;
     --navlink-c3: #ecdf4b;
 
-    --navlink-glow: rgb(255, 255, 255); /* glow color */
+    --navlink-glow: rgb(255, 255, 255); 
+
+    --color-test: #b9b84c3b;
+    --color-test-2: #ffffff0c;
 }
 
 @layer components {
