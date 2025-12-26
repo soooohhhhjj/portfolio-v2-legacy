@@ -1,4 +1,4 @@
-//src/pages/home/Journey.tsx
+// src/pages/home/Journey.tsx
 import { motion } from "framer-motion";
 import type { Easing } from "framer-motion";
 
@@ -16,17 +16,30 @@ export default function Journey({ shouldShow }: Props) {
       transition={{
         duration: 1,
         ease: easeSmooth,
-        delay: 0.4, // 👈 lags behind Hero's last element
+        delay: 0.4,
       }}
-      className={`relative min-h-screen w-full pt-24 pb-32 ${
+      className={`section-style relative min-h-screen mt-36 pt-24 pb-32 overflow-hidden ${
         shouldShow ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
-      <h1 className="text-4xl font-bold mb-16 text-center">
-        My Journey
-      </h1>
+      {/* Soft-entry blur background */}
+      <div className="absolute inset-0 -z-10">
+        {/* gradient mask */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent backdrop-blur-2xl" />
 
-      {/* content later */}
+        {/* glass edge hint */}
+        <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
+      </div>
+
+      <div className="section-content responsiveness flex flex-col relative z-10">
+        <h1 className="text-4xl font-bold mb-16 text-center">
+          My Journey
+        </h1>
+
+        <div className="flex-1 center-div opacity-40 text-sm">
+          Journey content goes here
+        </div>
+      </div>
     </motion.section>
   );
 }
