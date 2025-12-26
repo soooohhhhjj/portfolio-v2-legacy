@@ -10,8 +10,10 @@ import { setScrollVelocity } from "./lib/scrollState";
 export default function App() {
   const [slideUp, setSlideUp] = useState(false);
   const [heroDone, setHeroDone] = useState(false);
-  const [starMode, setStarMode] =
-    useState<"normal" | "cinematic" | "horizontal">("normal");
+const [starMode, setStarMode] = useState<
+  "normal" | "cinematic" | "horizontal" | "forward"
+>("normal");
+
 
   const journeyRef = useRef<HTMLDivElement>(null);
 
@@ -140,7 +142,7 @@ export default function App() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setStarMode("horizontal");
+          setStarMode("forward");
         } else {
           setStarMode("normal");
         }

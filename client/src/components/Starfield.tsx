@@ -12,7 +12,7 @@ interface Star {
 }
 
 interface StarfieldProps {
-  mode?: "normal" | "horizontal" | "vertical" | "paused" | "cinematic";
+  mode?: "normal" | "horizontal" | "vertical" | "paused" | "cinematic" | "forward";
 }
 
 function generateStars(
@@ -28,10 +28,8 @@ function generateStars(
     stars.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      size:
-        Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0],
-      speed:
-        Math.random() * (speedRange[1] - speedRange[0]) + speedRange[0],
+      size: Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0],
+      speed: Math.random() * (speedRange[1] - speedRange[0]) + speedRange[0],
       opacity: Math.random() * 0.5 + 0.5,
       twinkleSpeed: Math.random() * 0.015 + 0.005,
       twinkleOffset: Math.random() * Math.PI * 2,
@@ -49,10 +47,8 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
   const scrollInfluenceRef = useRef(0);
   const cinematicVelocityRef = useRef(0);
 
-  /* mode changes */
   useEffect(() => {
     modeRef.current = mode;
-
     if (mode === "cinematic") {
       cinematicVelocityRef.current = -12;
     }
@@ -92,36 +88,34 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
 
       const width = canvas.width;
       const height = canvas.height;
+      const cx = width * 0.5;
+      const cy = height * 0.5;
 
       timeRef.current += 0.016;
 
-      /* scroll influence (always) */
       scrollInfluenceRef.current +=
         (scrollVelocity - scrollInfluenceRef.current) * 0.08;
 
-      /* cinematic easing*/
       cinematicVelocityRef.current *= 0.98;
       if (Math.abs(cinematicVelocityRef.current) < 0.05) {
         cinematicVelocityRef.current = 0;
       }
 
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#000";
       ctx.fillRect(0, 0, width, height);
 
       layersRef.current.forEach(({ stars, speed }) => {
         stars.forEach((star) => {
-          // twinkle
+          /* draw */
           const twinkle =
-            Math.sin(timeRef.current * star.twinkleSpeed + star.twinkleOffset) *
-              0.2 +
-            0.8;
+            Math.sin(timeRef.current * star.twinkleSpeed + star.twinkleOffset) * 0.2 + 0.8;
 
           ctx.fillStyle = `rgba(255,255,255,${star.opacity * twinkle})`;
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
           ctx.fill();
 
-          /* base motion (mode dependent) */
+          /* BASE MOTION */
           let dx = -0.5 * speed;
           let dy = 0.5 * speed;
 
@@ -130,10 +124,16 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
             dy = 0;
           }
 
-          const scrollForce =
-            -scrollInfluenceRef.current * speed * 0.6;
+          if (modeRef.current === "forward") {
+            const vx = star.x - cx;
+            const vy = star.y - cy;
+            const dist = Math.sqrt(vx * vx + vy * vy) || 1;
 
-          /* scroll override */
+            dx = (vx / dist) * speed * 0.02;
+            dy = (vy / dist) * speed * 0.02;
+          }
+
+          /* SCROLL OVERRIDE */
           if (
             Math.abs(scrollInfluenceRef.current) > 0.1 &&
             modeRef.current !== "paused" &&
@@ -141,10 +141,10 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
             modeRef.current !== "vertical"
           ) {
             dx = 0;
-            dy = scrollForce;
+            dy = -scrollInfluenceRef.current * speed * 0.6;
           }
 
-          // hard mode overrides
+          /* HARD MODES */
           if (modeRef.current === "paused") {
             dx = dy = 0;
           } else if (modeRef.current === "vertical") {
@@ -158,11 +158,23 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
           star.x += dx;
           star.y += dy;
 
-          // wrap around edges
-          if (star.x < 0) star.x = width;
-          if (star.x > width) star.x = 0;
-          if (star.y < 0) star.y = height;
-          if (star.y > height) star.y = 0;
+          /* EDGE HANDLING */
+          const out =
+            star.x < 0 || star.x > width || star.y < 0 || star.y > height;
+
+          if (out) {
+            if (modeRef.current === "forward") {
+              // forward: respawn anywhere
+              star.x = Math.random() * width;
+              star.y = Math.random() * height;
+            } else {
+              // other modes: classic wrap
+              if (star.x < 0) star.x = width;
+              if (star.x > width) star.x = 0;
+              if (star.y < 0) star.y = height;
+              if (star.y > height) star.y = 0;
+            }
+          }
         });
       });
     };
