@@ -12,7 +12,7 @@ interface Star {
 }
 
 interface StarfieldProps {
-  mode?: "normal" | "vertical" | "paused" | "cinematic";
+  mode?: "normal" | "horizontal" | "vertical" | "paused" | "cinematic";
 }
 
 function generateStars(
@@ -49,10 +49,12 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
   const scrollInfluenceRef = useRef(0);
   const cinematicVelocityRef = useRef(0);
 
+  /* mode changes */
   useEffect(() => {
     modeRef.current = mode;
+
     if (mode === "cinematic") {
-      cinematicVelocityRef.current = -12; // initial upward push for cinematic welcome transition
+      cinematicVelocityRef.current = -12;
     }
   }, [mode]);
 
@@ -69,33 +71,15 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
 
       layersRef.current = [
         {
-          stars: generateStars(
-            120,
-            canvas.width,
-            canvas.height,
-            [0.5, 0.8],
-            [0.05, 0.15]
-          ),
+          stars: generateStars(120, canvas.width, canvas.height, [0.5, 0.8], [0.05, 0.15]),
           speed: 0.25,
         },
         {
-          stars: generateStars(
-            50,
-            canvas.width,
-            canvas.height,
-            [0.8, 1.3],
-            [0.1, 0.25]
-          ),
+          stars: generateStars(50, canvas.width, canvas.height, [0.8, 1.3], [0.1, 0.25]),
           speed: 0.45,
         },
         {
-          stars: generateStars(
-            25,
-            canvas.width,
-            canvas.height,
-            [1.3, 1.8],
-            [0.3, 0.55]
-          ),
+          stars: generateStars(25, canvas.width, canvas.height, [1.3, 1.8], [0.3, 0.55]),
           speed: 0.7,
         },
       ];
@@ -111,17 +95,15 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
 
       timeRef.current += 0.016;
 
-      // ease scroll influence (prevents snapping)
+      /* scroll influence (always) */
       scrollInfluenceRef.current +=
         (scrollVelocity - scrollInfluenceRef.current) * 0.08;
 
-      cinematicVelocityRef.current *= 0.98; // cinematic easing: stars slide up fast, then smoothly slow before returning to normal motion
-
-      // prevent hard stall
+      /* cinematic easing*/
+      cinematicVelocityRef.current *= 0.98;
       if (Math.abs(cinematicVelocityRef.current) < 0.05) {
         cinematicVelocityRef.current = 0;
       }
-
 
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
@@ -130,40 +112,47 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
         stars.forEach((star) => {
           // twinkle
           const twinkle =
-            Math.sin(
-              timeRef.current * star.twinkleSpeed + star.twinkleOffset
-            ) *
+            Math.sin(timeRef.current * star.twinkleSpeed + star.twinkleOffset) *
               0.2 +
             0.8;
 
-          ctx.fillStyle = `rgba(255,255,255,${
-            star.opacity * twinkle
-          })`;
+          ctx.fillStyle = `rgba(255,255,255,${star.opacity * twinkle})`;
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
           ctx.fill();
 
+          /* base motion (mode dependent) */
           let dx = -0.5 * speed;
           let dy = 0.5 * speed;
 
-          // scroll-driven motion (depth aware)
+          if (modeRef.current === "horizontal") {
+            dx = -0.6 * speed;
+            dy = 0;
+          }
+
           const scrollForce =
             -scrollInfluenceRef.current * speed * 0.6;
 
-          if (modeRef.current === "cinematic") {
-            dx = 0;
-            dy = cinematicVelocityRef.current * speed;
-          } else if (Math.abs(scrollInfluenceRef.current) > 0.1) {
+          /* scroll override */
+          if (
+            Math.abs(scrollInfluenceRef.current) > 0.1 &&
+            modeRef.current !== "paused" &&
+            modeRef.current !== "cinematic" &&
+            modeRef.current !== "vertical"
+          ) {
             dx = 0;
             dy = scrollForce;
           }
 
-          // mode overrides
+          // hard mode overrides
           if (modeRef.current === "paused") {
             dx = dy = 0;
           } else if (modeRef.current === "vertical") {
             dx = 0;
             dy = -10 * speed;
+          } else if (modeRef.current === "cinematic") {
+            dx = 0;
+            dy = cinematicVelocityRef.current * speed;
           }
 
           star.x += dx;
@@ -189,10 +178,5 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 -z-50"
-    />
-  );
+  return <canvas ref={canvasRef} className="fixed inset-0 -z-50" />;
 }

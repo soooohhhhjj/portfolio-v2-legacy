@@ -1,5 +1,4 @@
-// src/App.tsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Starfield from "./components/Starfield";
 import Welcome from "./pages/home/Welcome";
@@ -12,7 +11,9 @@ export default function App() {
   const [slideUp, setSlideUp] = useState(false);
   const [heroDone, setHeroDone] = useState(false);
   const [starMode, setStarMode] =
-    useState<"normal" | "cinematic">("normal");
+    useState<"normal" | "cinematic" | "horizontal">("normal");
+
+  const journeyRef = useRef<HTMLDivElement>(null);
 
   /* ===========================
      SCROLL LOCK HELPERS
@@ -39,7 +40,7 @@ export default function App() {
      WELCOME FINISH
   ============================ */
   const handleAnimationComplete = () => {
-    setStarMode("cinematic"); // ⭐ trigger star slide
+    setStarMode("cinematic"); // ⭐ cinematic star slide
     setSlideUp(true);
   };
 
@@ -50,7 +51,7 @@ export default function App() {
   useEffect(() => {
     if (slideUp && heroDone) {
       unlockScroll();
-      setStarMode("normal"); // ⭐ return stars to normal
+      setStarMode("normal"); // ⭐ return to normal motion
     }
   }, [slideUp, heroDone]);
 
@@ -59,7 +60,6 @@ export default function App() {
   ============================ */
   useEffect(() => {
     const preventScroll = (e: Event) => {
-      // only block scroll-related keys
       if (
         e instanceof KeyboardEvent &&
         ![
@@ -80,8 +80,12 @@ export default function App() {
 
     if (!slideUp || !heroDone) {
       window.addEventListener("wheel", preventScroll, { passive: false });
-      window.addEventListener("touchmove", preventScroll, { passive: false });
-      window.addEventListener("keydown", preventScroll, { passive: false });
+      window.addEventListener("touchmove", preventScroll, {
+        passive: false,
+      });
+      window.addEventListener("keydown", preventScroll, {
+        passive: false,
+      });
     }
 
     return () => {
@@ -126,6 +130,33 @@ export default function App() {
     };
   }, [slideUp, heroDone]);
 
+  /* ===========================
+     JOURNEY → STARFIELD MODE
+     (25% VIEWPORT TRIGGER)
+  ============================ */
+  useEffect(() => {
+    if (!journeyRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarMode("horizontal");
+        } else {
+          setStarMode("normal");
+        }
+      },
+      {
+        root: null,
+        threshold: 0,
+        rootMargin: "-25% 0px -75% 0px",
+      }
+    );
+
+    observer.observe(journeyRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main className="relative w-full min-h-screen overflow-hidden text-white">
       {/* BACKGROUND STARFIELD */}
@@ -152,7 +183,10 @@ export default function App() {
           shouldAnimate={slideUp}
           onAnimationsComplete={() => setHeroDone(true)}
         />
-        <Journey shouldShow={slideUp} />
+
+        <div ref={journeyRef}>
+          <Journey shouldShow={slideUp} />
+        </div>
       </div>
     </main>
   );

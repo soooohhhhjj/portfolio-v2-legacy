@@ -22,14 +22,6 @@ export default function Journey({ shouldShow }: Props) {
         shouldShow ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
-      {/* Soft-entry blur background */}
-      <div className="absolute inset-0 -z-10">
-        {/* gradient mask */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent backdrop-blur-2xl" />
-
-        {/* glass edge hint */}
-        <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
-      </div>
 
       <div className="section-content responsiveness flex flex-col relative z-10">
         <h1 className="text-4xl font-bold mb-16 text-center">
