@@ -1,6 +1,7 @@
 // src/pages/home/Journey.tsx
 import { motion } from "framer-motion";
 import type { Easing } from "framer-motion";
+import "../../components/Journey/Journey.css";
 
 const easeSmooth: Easing = [0.12, 0.7, 0.63, 0.9];
 
@@ -18,11 +19,14 @@ export default function Journey({ shouldShow }: Props) {
         ease: easeSmooth,
         delay: 0.4,
       }}
-      className={`section-style relative min-h-screen mt-36 pt-24 pb-32 overflow-hidden ${
+      className={`section-style relative h-[500vh] mt-6 overflow-hidden justify-start flex flex-col ${
         shouldShow ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
+      {/* Backgrounds */}
+      <div className="" />
 
+      {/* CONTENT (temporary) */}
       <div className="section-content responsiveness flex flex-col relative z-10">
         <h1 className="text-4xl font-bold mb-16 text-center">
           My Journey
