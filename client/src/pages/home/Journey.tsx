@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import type { Easing } from "framer-motion";
 import "../../components/Journey/Journey.css";
+import "../../components/Hero/hero.css";
 
 const easeSmooth: Easing = [0.12, 0.7, 0.63, 0.9];
 
@@ -19,22 +20,30 @@ export default function Journey({ shouldShow }: Props) {
         ease: easeSmooth,
         delay: 0.4,
       }}
-      className={`section-style relative h-[500vh] mt-6 overflow-hidden justify-start flex flex-col ${
+      className={`section-style relative mt-6 flex flex-col ${
         shouldShow ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
-      {/* Backgrounds */}
-      <div className="" />
+      <div className="section-content h-[500vh] mt-36 responsiveness flex flex-col relative z-10">
+        {/* TITLE */}
+        <div className="text-center">
+          <h1 className="font-bruno text-4xl font-[700] tracking-[2px] text-white journey-header">
+            My Journey
+          </h1>
 
-      {/* CONTENT (temporary) */}
-      <div className="section-content responsiveness flex flex-col relative z-10">
-        <h1 className="text-4xl font-bold mb-16 text-center">
-          My Journey
-        </h1>
-
-        <div className="flex-1 center-div opacity-40 text-sm">
-          Journey content goes here
+          <p className="mt-4 text-[15px] text-white tracking-[.3px] font-jura max-w-xl mx-auto journey-subheader">
+            A timeline of my growth, learning process, and projects over the years.
+          </p>
         </div>
+
+        {/* Divider */}
+        <div className="mt-10 flex justify-center relative">
+          <div className="journey-divider" />
+        </div>
+
+
+
+        {/* content comes later */}
       </div>
     </motion.section>
   );

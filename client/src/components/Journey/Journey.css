@@ -1,6 +1,34 @@
-/*src/components/Journey/Journey.css*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
 
+  .journey-header {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.48);
+    -webkit-text-stroke: 1px #fdf5c6de;
+  }
+
+  .journey-subheader {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.48);
+    -webkit-text-stroke: 0.1px #fdf5c6de;
+  }
+
+  /* ================= DIVIDER ================= */
+
+  .journey-divider {
+    position: relative;
+    height: 2px;
+    width: 100%;
+    margin: 0 auto;
+
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgb(255, 255, 255) 50%,
+      transparent 100%
+    );
+    overflow: visible;
+  }
+  
+}
