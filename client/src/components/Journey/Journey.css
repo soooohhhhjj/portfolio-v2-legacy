@@ -5,12 +5,12 @@
 @layer components {
 
   .journey-header {
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.48);
+
     -webkit-text-stroke: 1px #fdf5c6de;
   }
 
   .journey-subheader {
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.48);
+
     -webkit-text-stroke: 0.1px #fdf5c6de;
   }
 
