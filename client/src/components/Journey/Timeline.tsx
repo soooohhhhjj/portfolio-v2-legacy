@@ -16,6 +16,7 @@ export default function Timeline() {
 
   const [energyTop, setEnergyTop] = useState(0);
   const energyTopRef = useRef(0);
+  const energyCenterYRef = useRef(0);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
@@ -67,6 +68,15 @@ export default function Timeline() {
       energyTopRef.current += (targetTop - energyTopRef.current) * SMOOTHING;
       setEnergyTop(energyTopRef.current);
 
+      // STEP 4 — energy center tracking
+      const energyCenterY =
+        rect.top +
+        energyTopRef.current +
+        energyHeight / 2;
+
+      energyCenterYRef.current = energyCenterY;
+
+
       rafId = requestAnimationFrame(update);
     };
 
@@ -75,9 +85,9 @@ export default function Timeline() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full mt-24">
+    <div ref={containerRef} className="relative w-full mt-20">
       {/* TUBE */}
-      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-[2px] h-full overflow-hidden">
+      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-[2px] h-[103%] overflow-hidden">
         <div className="absolute inset-0 bg-white/10" />
 
         <div
@@ -99,13 +109,13 @@ export default function Timeline() {
                 rgba(255,255,255,0) 100%
               )
             `,
-            filter: "blur(0.4px)",
+            filter: "drop-shadow(0 0 10px rgba(255,255,255,.45))",
           }}
         />
       </div>
 
       {/* CONTENT */}
-      <div className="relative flex flex-col gap-14">
+      <div className="relative flex flex-col gap-14 pt-12">
         {timelineItems.map((item, idx) => (
           <TimelineRow
             key={item.id}
@@ -114,7 +124,9 @@ export default function Timeline() {
             isActive={idx === activeIndex}
             setSpikeRef={(el) => el && (spikeRefs.current[idx] = el)}
             setCardRef={(el) => el && (cardRefs.current[idx] = el)}
+            energyCenterY={energyCenterYRef.current}
           />
+
         ))}
       </div>
     </div>
@@ -127,14 +139,37 @@ function TimelineRow({
   isActive,
   setSpikeRef,
   setCardRef,
+  energyCenterY,
 }: {
+
   item: TimelineItem;
   index: number;
   isActive: boolean;
   setSpikeRef: (el: HTMLDivElement | null) => void;
   setCardRef: (el: HTMLDivElement | null) => void;
+energyCenterY: number;
 }) {
   const isRight = index % 2 === 0;
+  const spikeLocalRef = useRef<HTMLDivElement | null>(null);
+  const [spikePower, setSpikePower] = useState(0);
+
+  useEffect(() => {
+    if (!spikeLocalRef.current) return;
+
+    const rect = spikeLocalRef.current.getBoundingClientRect();
+    const spikeCenter = rect.top + rect.height / 2;
+
+    const distance = Math.abs(spikeCenter - energyCenterY);
+
+    const MAX_DISTANCE = 400;
+    const raw = 1 - Math.min(distance / MAX_DISTANCE, 1);
+
+    // smoother falloff
+    const eased = Math.pow(raw, .1);
+
+    setSpikePower(eased);
+  }, [energyCenterY]);
+
 
   const cardClass = isActive
     ? "opacity-100 scale-100 blur-0 saturate-100"
@@ -144,15 +179,34 @@ function TimelineRow({
     <div className="relative w-full">
       {/* spike */}
       <div
-        ref={setSpikeRef}
+        ref={(el) => {
+          spikeLocalRef.current = el;
+          setSpikeRef(el);
+        }}
         className={`
-          absolute top-60 left-[50.1%] w-0 h-0 transition-all duration-300
-          ${
-            isRight
-              ? "border-y-[1px] border-y-transparent border-l-[32px] border-l-white/20"
-              : "border-y-[1px] border-y-transparent border-r-[32px] border-r-white/20 -translate-x-full"
-          }
+          absolute top-60 left-[50.1%] w-0 h-0 transition-all duration-200
+          ${isRight ? "" : "-translate-x-full"}
         `}
+        style={{
+          borderTop: "1px solid transparent",
+          borderBottom: "1px solid transparent",
+          ...(isRight
+            ? {
+                borderLeftWidth: "32px",
+                borderLeftStyle: "solid",
+                borderLeftColor: `rgba(255,255,255,${
+                  0.15 + spikePower * 0.85
+                })`,
+              }
+            : {
+                borderRightWidth: "32px",
+                borderRightStyle: "solid",
+                borderRightColor: `rgba(255,255,255,${
+                  0.15 + spikePower * 0.85
+                })`,
+              }),
+          filter: `brightness(${1 + spikePower * 1.2})`,
+        }}
       />
 
       <div className="grid grid-cols-2">
@@ -237,12 +291,12 @@ function TimelineCard({
           {item.date}
         </p>
 
-        <h3 className="mt-1 text-[23px] font-bold font-montserrat">
+        <h3 className="mt-1 text-[24px] font-bold font-montserrat">
           {item.title}
         </h3>
 
         {item.image && (
-        <div className="mt-4 rounded-[5px] overflow-hidden border border-white/10">
+        <div className="mt-3 rounded-[5px] overflow-hidden border border-white/10">
           <img
             src={item.image}
             alt={item.title}
@@ -267,7 +321,7 @@ function TimelineCard({
         <div className="relative flex gap-6 border-b border-white/10">
           <span
             className={`
-              absolute bottom-0 h-[2px] w-[88px] bg-white
+              absolute -bottom-[1px] h-[2px] w-[95px] bg-white rounded-full
               transition-transform duration-300 ease-out
               ${tab === "takeaways" ? "translate-x-0" : "translate-x-[104px]"}
             `}

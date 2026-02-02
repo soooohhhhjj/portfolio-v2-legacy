@@ -7,11 +7,16 @@
   .journey-header {
 
     -webkit-text-stroke: 1px #fdf5c6de;
+    text-shadow: 0 0 17px rgba(245, 244, 210, 0.479);
   }
 
   .journey-subheader {
 
     -webkit-text-stroke: 0.1px #fdf5c6de;
+    text-shadow: 0 0 12px rgba(245, 244, 210, 0.479);
+  }
+  .test{
+    text-shadow: 0 0 30px rgba(236, 234, 94, 0.479);
   }
 
   /* ================= DIVIDER ================= */
