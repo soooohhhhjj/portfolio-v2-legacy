@@ -1,6 +1,8 @@
 import MemoryItem from "./MemoryItem";
 import MemoryPath from "./MemoryPath";
-import { items, edges } from "./memoryLane.data";
+import { items } from "./memoryLane.data";
+import { edges } from "./memoryLane.edges.data";
+
 import "./memoryLane.css";
 
 export default function MemoryLane() {

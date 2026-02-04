@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { GraduationCap, Code } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 
 export type Anchor = "top" | "bottom" | "left" | "right";
 
@@ -12,96 +12,53 @@ export interface MemoryItem {
   width: number;
   height: number;
 
+  // parent
   icon?: LucideIcon;
+
+  // child
   title?: string;
-  stack?: string[];
-}
+  details?: string;
+  image?: string;
 
-export interface MemoryEdge {
-  from: string;
-  to: string;
-
-  fromAnchor: Anchor;
-  toAnchor: Anchor;
-
-  // optional bend points (absolute positions)
-  via?: { x: number; y: number }[];
+  techTags?: string[];
+  highlightTags?: string[];
 }
 
 export const items: MemoryItem[] = [
   {
-    id: "1a",
+    id: "node1",
     type: "parent",
-    x: 120,
-    y: 200,
-    width: 44,
-    height: 44,
+    x: 436,
+    y: 80,
+    width: 56,
+    height: 56,
     icon: GraduationCap,
   },
   {
-    id: "2a",
+    id: "node1-c1",
     type: "child",
-    x: 260,
-    y: 300,
-    width: 320,
-    height: 180,
+    x: 50,
+    y: 230,
+    width: 340,
+    height: 300,
     title: "Freshman Projects",
-    stack: ["HTML", "CSS"],
+    details: "Early coursework focused on web fundamentals and collaboration.",
+    image: "/Journey/basc.PNG",
+    techTags: ["HTML", "CSS"],
+    highlightTags: ["Troubleshooting", "Teamwork"],
   },
   {
-    id: "3a",
+    id: "node1-c2",
     type: "child",
-    x: 420,
-    y: 520,
-    width: 320,
-    height: 180,
-    title: "Portfolio v1",
-    stack: ["JavaScript"],
+    x: 640,
+    y: 280,
+    width: 340,
+    height: 300,
+    title: "Freshman Projects",
+    details: "Early coursework focused on web fundamentals and collaboration.",
+    image: "/Journey/basc.PNG",
+    techTags: ["HTML", "CSS"],
+    highlightTags: ["Troubleshooting", "Teamwork"],
   },
-  {
-    id: "1b",
-    type: "parent",
-    x: 300,
-    y: 820,
-    width: 44,
-    height: 44,
-    icon: Code,
-  },
-];
 
-export const edges: MemoryEdge[] = [
-  {
-    from: "1a",
-    to: "2a",
-    fromAnchor: "right",
-    toAnchor: "top",
-    via: [
-      { x: 180, y: 220 },
-      { x: 220, y: 180 },
-      { x: 250, y: 260 },
-    ],
-  },
-  {
-    from: "2a",
-    to: "3a",
-    fromAnchor: "bottom",
-    toAnchor: "top",
-    via: [
-      { x: 280, y: 420 },
-      { x: 400, y: 480 },
-      { x: 380, y: 500 },
-    ],
-  },
-  {
-    from: "3a",
-    to: "1b",
-    fromAnchor: "bottom",
-    toAnchor: "left",
-    via: [
-      { x: 580, y: 700 },
-      { x: 260, y: 680 },
-      { x: 320, y: 720 },
-      { x: 280, y: 780 },
-    ],
-  },
 ];

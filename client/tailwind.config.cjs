@@ -12,6 +12,7 @@ module.exports = {
         bruno: ['Bruno Ace SC', 'sans-serif'], 
         sansation: ['Sansation', 'sans-serif'], 
         zalando: ['Zalando Sans Expanded', 'sans-serif'], 
+        montserrat: ['Montserrat', 'sans-serif'], 
       },
     },
   },

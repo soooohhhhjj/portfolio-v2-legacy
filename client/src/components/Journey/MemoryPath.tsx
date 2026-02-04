@@ -1,4 +1,5 @@
-import type { MemoryItem, MemoryEdge } from "./memoryLane.data";
+import type { MemoryItem } from "./memoryLane.data";
+import type { MemoryEdge } from "./memoryLane.edges";
 
 interface Props {
   edge: MemoryEdge;
@@ -11,12 +12,12 @@ export default function MemoryPath({ edge, items }: Props) {
 
   if (!from || !to) return null;
 
-  // Helper to get the anchor coordinates
   const getAnchorPoint = (
     item: MemoryItem,
     anchor: "top" | "bottom" | "left" | "right"
   ) => {
-    const { x, y, width, height } = item;
+    const { x, y, width } = item;
+    const height = item.height ?? 0;
 
     switch (anchor) {
       case "top":
@@ -33,19 +34,86 @@ export default function MemoryPath({ edge, items }: Props) {
   const start = getAnchorPoint(from, edge.fromAnchor);
   const end = getAnchorPoint(to, edge.toAnchor);
 
-  // NEW: Build points array including manual middle points
   const points = [start, ...(edge.via ?? []), end];
 
-  // Convert points to SVG polyline string
-  const pointsString = points.map(p => `${p.x},${p.y}`).join(" ");
+  const buildPath = () => {
+    if (points.length < 2) return "";
+
+    let d = `M ${points[0].x} ${points[0].y}`;
+
+    for (let i = 1; i < points.length; i++) {
+      const prev = points[i - 1];
+      const curr = points[i];
+
+      const cx = (prev.x + curr.x) / 2;
+      const cy = (prev.y + curr.y) / 2;
+
+      d += ` Q ${prev.x} ${prev.y} ${cx} ${cy}`;
+    }
+
+    const last = points[points.length - 1];
+    d += ` T ${last.x} ${last.y}`;
+
+    return d;
+  };
+
+  const pathD = buildPath();
+
+  // unique ids so multiple paths don’t clash
+  const gradientId = `memory-gradient-${edge.from}-${edge.to}`;
+  const glowId = `memory-glow-${edge.from}-${edge.to}`;
 
   return (
-    <polyline
-      points={pointsString}
-      fill="none"
-      stroke="rgba(255,255,255,0.25)"
-      strokeWidth={2}
-      markerEnd="url(#arrow)"
-    />
+    <>
+      <defs>
+        {/* Stroke gradient following the path direction */}
+        <linearGradient
+  id={gradientId}
+  gradientUnits="userSpaceOnUse"
+  x1={start.x}
+  y1={start.y}
+  x2={end.x}
+  y2={end.y}
+>
+  <stop offset="0%" stopColor="rgba(0,0,0,0.9)" />
+  <stop offset="25%" stopColor="rgba(255,255,255,0.6)" />
+  <stop offset="50%" stopColor="rgba(0,0,0,0.9)" />
+  <stop offset="75%" stopColor="rgba(255,255,255,0.6)" />
+  <stop offset="100%" stopColor="rgba(0,0,0,0.9)" />
+</linearGradient>
+
+
+        {/* Glow that inherits the gradient color */}
+        <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      {/* Glow layer */}
+      <path
+        d={pathD}
+        fill="none"
+        stroke={`url(#${gradientId})`}
+        strokeWidth={6}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity={0.1}
+        filter={`url(#${glowId})`}
+      />
+
+      {/* Main line */}
+      <path
+        d={pathD}
+        fill="none"
+        stroke={`url(#${gradientId})`}
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </>
   );
 }
