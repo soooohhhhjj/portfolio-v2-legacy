@@ -1,9 +1,9 @@
 // src/pages/home/Journey.tsx
 import { motion } from "framer-motion";
 import type { Easing } from "framer-motion";
-import "../../components/Journey/Journey.css";
+// import "../../components/Journey/Journey.css";
 import "../../components/Hero/hero.css";
-import MemoryLane from "../../components/Journey/MemoryLane";
+// import MemoryLane from "../../components/Journey/MemoryLane";
 
 const easeSmooth: Easing = [0.12, 0.7, 0.63, 0.9];
 
@@ -46,7 +46,7 @@ export default function Journey({ shouldShow }: Props) {
             </p>
           </div>
 
-          <MemoryLane />
+          {/* <MemoryLane /> */}
 
         </div>
       </div>
