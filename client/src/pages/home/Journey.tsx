@@ -33,7 +33,7 @@ export default function Journey({ shouldShow }: Props) {
       />
 
       {/* Content area */}
-      <div className="section-content h-[500vh] bg-[#0b0b0fc9] flex flex-col relative z-10">
+      <div className="section-content h-[5900px] bg-[#0b0b0fc9] flex flex-col relative z-10">
         <div className="responsiveness">
           {/* TITLE */}
           <div className="text-center mt-[90px]">

@@ -11,7 +11,7 @@ export default function MemoryLane() {
   );
 
   return (
-    <div className="memory-lane relative w-full h-[350vh]">
+    <div className="memory-lane relative w-full h-[5500px]">
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
         {edges.map((edge, i) => (
           <MemoryPath
