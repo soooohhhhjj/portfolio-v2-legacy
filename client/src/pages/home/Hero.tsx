@@ -54,7 +54,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
           transition={{ duration: 0.6, ease: easeSmooth }}
           className="w-full flex justify-between items-center pt-[30px] pb-[20px]"
         >
-          <h1 className="web-name font-bruno text-[18px] font-[500] tracking-[2px] text-white icon-role-text">
+          <h1 className="web-name font-bruno text-[18px] sm:text-[20px] font-[500] tracking-[2px] text-white icon-role-text">
             {"sohj.abe".split("").map((char, i) => (
               <span
                 key={i}
@@ -80,7 +80,11 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
             aria-controls="mobile-nav"
             onClick={() => setIsNavOpen((open) => !open)}
           >
-            {isNavOpen ? <X size={18} /> : <Menu size={20} />}
+            {isNavOpen ? (
+              <X className="w-4 h-4 sm:w-6 sm:h-6" />
+            ) : (
+              <Menu className="w-4 h-4 sm:w-6 sm:h-6" />
+            )}
           </button>
         </motion.nav>
 
@@ -98,7 +102,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
         <div className="flex flex-col flex-1 gap-16 mt-[0px]">
 
           {/* TOP: IMAGE + TEXT */}
-          <div className="flex flex-col md:flex-row items-start justify-between gap-12">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12">
 
             {/* PROFILE PIC */}
             <GlassFrame
@@ -128,8 +132,8 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
                 transition={{ duration: 0.9, ease: easeSmooth, delay: 0.05 }}
                 className="font-jura 
-                text-[15px] 
-                tracking-[.1px] 
+                text-[15px] sm:text-[17px]
+                tracking-[.1px] sm:tracking-[.2px]
                 text-white font-[700]"
               >
                 Hi, I'm <span>Carlo Joshua B. Abellera</span>, and I enjoy
@@ -139,7 +143,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
                 transition={{ duration: 1, ease: easeSmooth, delay: 0.1 }}
-                className="font-anta text-[38px] font-extrabold leading-tight tracking-tight inline-block mt-2"
+                className="font-anta text-[38px] sm:text-[54px] font-extrabold leading-tight tracking-tight inline-block mt-2"
               >
                 <span className="hero-text">Building pixel-perfect</span><br />
                 <span className="hero-gradient-text">Interactive </span>
@@ -150,7 +154,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
                 transition={{ duration: 1.1, ease: easeSmooth, delay: 0.15 }}
-                className="font-bruno text-[18px] font-[500] tracking-[1px] text-white mt-12 icon-role-text"
+                className="font-bruno text-[18px] sm:text-[22px] font-[500] tracking-[1px] text-white mt-10 sm:mt-12 icon-role-text"
               >
                 Full-Stack Developer
               </motion.p>
@@ -159,21 +163,21 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
                 transition={{ duration: 1.2, ease: easeSmooth, delay: 0.2 }}
-                className="btn-pair flex flex-wrap justify-center gap-3 pt-7 text-[11px] tracking-[.2px] font-[700] font-jura"
+                className="btn-pair flex flex-wrap justify-center gap-3 sm:gap-4 pt-6 sm:pt-7 text-[11px] sm:text-[12px] tracking-[.2px] font-[700] font-jura"
               >
                 <button
-                  className={`hero-btn hero-btn-solid ${outlineHover ? "btn-drain" : ""}`}
+                  className={`hero-btn hero-btn-solid px-4 py-2 sm:px-5 sm:py-2 ${outlineHover ? "btn-drain" : ""}`}
                 >
-                  <Download size={13}/>
+                  <Download size={12} />
                   Resume
                 </button>
 
                 <button
-                  className="hero-btn hero-btn-outline"
+                  className="hero-btn hero-btn-outline px-4 py-2 sm:px-5 sm:py-2"
                   onMouseEnter={() => setOutlineHover(true)}
                   onMouseLeave={() => setOutlineHover(false)}
                 >
-                  <SquareArrowOutUpRight size={13} />
+                  <SquareArrowOutUpRight size={12} />
                   Explore
                 </button>
               </motion.div>
