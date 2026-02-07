@@ -135,7 +135,7 @@ export default function MemoryItem(props: Item) {
         className="absolute flex items-center justify-center memory-node"
         style={{ left: x, top: y, width, height }}
       >
-        <Icon size={26} strokeWidth={1.3} />
+        <Icon size={22} strokeWidth={1.3} />
       </div>
     );
   }

@@ -36,18 +36,18 @@ export default function Journey({ shouldShow }: Props) {
       <div className="section-content bg-[#0b0b0fc9] flex flex-col relative z-10">
         <div className="responsiveness">
           {/* TITLE */}
-          <div className="text-center mt-[90px]">
-            <h1 className="font-bruno text-[41px] font-[700] tracking-[2px] text-white journey-header">
+          <div className="text-center">
+            <h1 className="font-bruno text-[30px] font-bold tracking-[1px] text-white journey-header">
               My Journey
             </h1>
 
-            <p className="mt-4 text-[16px] text-white tracking-[.3px] font-jura max-w-xl mx-auto journey-subheader">
+            <p className="mt-[7px] text-[15px] text-white tracking-[.3px] font-jura max-w-xl mx-auto journey-subheader">
               A timeline of my growth, learning process, and projects over the years.
             </p>
           </div>
 
           {/* <MemoryLane /> */}
-          <div className="mt-14">
+          <div className="mt-0">
             <MemoryLane />
           </div>
 

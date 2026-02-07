@@ -66,7 +66,7 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
       </motion.div>
 
       {/* CARDS */}
-      <div className="flex flex-wrap gap-6">
+      <div className="flex flex-wrap gap-4 sm:gap-6">
         {cards.map((card, i) => {
           const Icon = card.icon;
           const isHovered = hoveredIndex === i;
@@ -86,9 +86,9 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
               className="
                 relative overflow-hidden
                 rounded-[5px]
-                p-6
+                p-4 sm:p-6
                 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]
-                flex flex-col items-start gap-3
+                flex flex-col items-start gap-2 sm:gap-3
               "
               style={{
                 boxShadow: isHovered 
@@ -136,42 +136,45 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
                 }}
               />
 
-              {/* ICON with background */}
-              <div className="relative z-10 mb-1">
-                <div
-                  className="absolute inset-0 rounded-lg blur-xl transition-opacity duration-500"
-                  style={{
-                    backgroundColor: HOVER_THEME.iconColor,
-                    opacity: isHovered ? 0.2 : 0,
-                  }}
-                />
-                <div
-                  className="relative w-12 h-12 rounded-[7px] flex items-center justify-center transition-all duration-300"
-                  style={{
-                    backgroundColor: isHovered ? "#b9b84c3b" : "#ffffff08",
-                    border: isHovered ? "1px solid transparent" : "1px solid #ffffff0c",
-                  }}
-                >
-                  <Icon className="w-6 h-6 text-white" />
+              {/* ICON + TITLE ROW */}
+              <div className="relative z-10 flex items-center gap-3">
+                <div className="relative">
+                  <div
+                    className="absolute inset-0 rounded-lg blur-xl transition-opacity duration-500"
+                    style={{
+                      backgroundColor: HOVER_THEME.iconColor,
+                      opacity: isHovered ? 0.2 : 0,
+                    }}
+                  />
+                  <div
+                    className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-[7px] flex items-center justify-center transition-all duration-300"
+                    style={{
+                      backgroundColor: isHovered ? "#b9b84c3b" : "#ffffff08",
+                      border: isHovered ? "1px solid transparent" : "1px solid #ffffff0c",
+                    }}
+                  >
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-bruno text-[12px] sm:text-[14px] tracking-[1px] text-white hero-card-title">
+                    {card.title}
+                  </h3>
+
+                  {/* Animated divider */}
+                  <div
+                    className="h-[2px] bg-gradient-to-r from-white/40 to-transparent transition-all duration-500"
+                    style={{
+                      width: isHovered ? "100%" : "32px",
+                    }}
+                  />
                 </div>
               </div>
 
-              {/* TITLE */}
-              <h3 className="relative z-10 font-bruno text-[14px] tracking-[1px] text-white hero-card-title">
-                {card.title}
-              </h3>
-
-              {/* Animated divider */}
-              <div
-                className="relative z-10 h-[2px] bg-gradient-to-r from-white/40 to-transparent transition-all duration-500"
-                style={{
-                  width: isHovered ? "100%" : "32px",
-                }}
-              />
-
               {/* DESCRIPTION */}
               <p 
-                className="relative z-10 font-jura text-[13px] leading-relaxed transition-colors duration-300"
+                className="relative z-10 font-jura text-[12px] sm:text-[13px] leading-relaxed transition-colors duration-300"
                 style={{
                   color: isHovered ? "#ffffffd9" : "#ffffffbf",
                 }}
