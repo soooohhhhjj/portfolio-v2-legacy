@@ -7,8 +7,9 @@ const canvasWidth = 370;
 const paddingX = 0;
 const cardWidth = canvasWidth - paddingX * 2;
 const parentSize = 55;
-const gapAfterParent = 22;
+const gapAfterParent = 30;
 const gapAfterCard = 28;
+const gapAfterLastChild = 80;
 const startY = 70;
 
 const getCardHeight = (item: JourneyItemContent) => {
@@ -21,8 +22,14 @@ const buildStackedItems = () => {
   let y = startY;
   const items: LayoutItem[] = [];
 
+  let lastWasChild = false;
+
   for (const item of journeyContent) {
     if (item.type === "parent") {
+      if (lastWasChild) {
+        y += gapAfterLastChild;
+      }
+
       items.push({
         id: item.id,
         x: (canvasWidth - parentSize) / 2,
@@ -31,6 +38,7 @@ const buildStackedItems = () => {
         height: parentSize,
       });
       y += parentSize + gapAfterParent;
+      lastWasChild = false;
       continue;
     }
 
@@ -43,6 +51,7 @@ const buildStackedItems = () => {
       height,
     });
     y += height + gapAfterCard;
+    lastWasChild = true;
   }
 
   return { items, height: y + 40 };
