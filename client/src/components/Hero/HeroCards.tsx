@@ -60,7 +60,7 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
         }}
         className="mb-5"
       >
-        <p className="font-bruno text-[13px] tracking-[1px] uppercase text-white">
+        <p className="font-bruno text-[13px] tracking-[1.3px] uppercase text-white hero-card-section-title">
           Highlights
         </p>
       </motion.div>
@@ -157,7 +157,7 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
               </div>
 
               {/* TITLE */}
-              <h3 className="relative z-10 font-bruno text-[14px] tracking-[1px] text-white">
+              <h3 className="relative z-10 font-bruno text-[14px] tracking-[1px] text-white hero-card-title">
                 {card.title}
               </h3>
 

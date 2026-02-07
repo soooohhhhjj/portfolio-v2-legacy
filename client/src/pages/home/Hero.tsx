@@ -66,7 +66,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
 
           <div className="nav-links font-jura font-medium flex items-center gap-6">
             <a href="#about" className="nav-link">Home</a>
-            <a href="#works" className="nav-link">My Projects</a>
+            <a href="#works" className="nav-link">Projects</a>
             <a href="#about" className="nav-link">About Me</a>
             <a href="#about" className="nav-link">Contact</a>
           </div>
