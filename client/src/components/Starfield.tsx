@@ -15,6 +15,23 @@ interface StarfieldProps {
   mode?: "normal" | "horizontal" | "vertical" | "paused" | "cinematic" | "forward";
 }
 
+// Tweak star counts per device breakpoint (in px)
+const STAR_COUNTS = {
+  mobile: [45, 15, 10],
+  sm: [60, 20, 15],
+  md: [90, 30, 22],
+  lg: [120, 50, 25],
+  xl: [120, 50, 25],
+};
+
+const getStarCountsForWidth = (width: number) => {
+  if (width >= 1280) return STAR_COUNTS.xl;
+  if (width >= 1024) return STAR_COUNTS.lg;
+  if (width >= 768) return STAR_COUNTS.md;
+  if (width >= 640) return STAR_COUNTS.sm;
+  return STAR_COUNTS.mobile;
+};
+
 function generateStars(
   count: number,
   width: number,
@@ -65,17 +82,18 @@ export default function Starfield({ mode = "normal" }: StarfieldProps) {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
+      const [c1, c2, c3] = getStarCountsForWidth(canvas.width);
       layersRef.current = [
         {
-          stars: generateStars(120, canvas.width, canvas.height, [0.5, 0.8], [0.05, 0.15]),
+          stars: generateStars(c1, canvas.width, canvas.height, [0.5, 0.8], [0.05, 0.15]),
           speed: 0.25,
         },
         {
-          stars: generateStars(50, canvas.width, canvas.height, [0.8, 1.3], [0.1, 0.25]),
+          stars: generateStars(c2, canvas.width, canvas.height, [0.8, 1.3], [0.1, 0.25]),
           speed: 0.45,
         },
         {
-          stars: generateStars(25, canvas.width, canvas.height, [1.3, 1.8], [0.3, 0.55]),
+          stars: generateStars(c3, canvas.width, canvas.height, [1.3, 1.8], [0.3, 0.55]),
           speed: 0.7,
         },
       ];
