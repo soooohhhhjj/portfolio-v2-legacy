@@ -1,9 +1,9 @@
-import type { MemoryItem } from "./memoryLane.data";
-import type { MemoryEdge } from "./memoryLane.edges";
+import type { JourneyItemNode } from "./types/journey.types";
+import type { LayoutEdge } from "./layout/layout.types";
 
 interface Props {
-  edge: MemoryEdge;
-  items: Record<string, MemoryItem>;
+  edge: LayoutEdge;
+  items: Record<string, JourneyItemNode>;
 }
 
 export default function MemoryPath({ edge, items }: Props) {
@@ -13,7 +13,7 @@ export default function MemoryPath({ edge, items }: Props) {
   if (!from || !to) return null;
 
   const getAnchorPoint = (
-    item: MemoryItem,
+    item: JourneyItemNode,
     anchor: "top" | "bottom" | "left" | "right"
   ) => {
     const { x, y, width } = item;

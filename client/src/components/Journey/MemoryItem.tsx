@@ -1,4 +1,4 @@
-import type { MemoryItem as Item } from "./memoryLane.data";
+import type { JourneyItemNode as Item } from "./types/journey.types";
 import { techIconMap } from "./ui/memoryLane.techIcons";
 import GlassCard from "../../components/ui/GlassCard";
 import BouncingImage from "./ui/BouncingImage";
@@ -37,7 +37,7 @@ function MemoryCardImage({
       <GlassCard
         corner="rounded-[3px]"
         shadow="shadow-[0_0_14px_rgba(255,255,255,0.2)]"
-        className="w-full h-[160px]"
+        className="w-full h-full"
       >
         <BouncingImage src={image} />
       </GlassCard>

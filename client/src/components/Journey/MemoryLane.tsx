@@ -1,17 +1,28 @@
+import { useMemo } from "react";
 import MemoryItem from "./MemoryItem";
 import MemoryPath from "./MemoryPath";
-import { items } from "./memoryLane.data";
-import { edges } from "./memoryLane.edges.data";
+import { journeyContent } from "./journey.content";
+import { computeJourneyNodes } from "./layout/computeNodes";
+import { pickLayout } from "./layout";
+import { useContainerSize } from "./layout/useContainerSize";
 
-import "./memoryLane.css";
+import "./CSS/memoryLane.css";
 
 export default function MemoryLane() {
-  const itemMap = Object.fromEntries(
-    items.map((item) => [item.id, item])
+  const { ref, width } = useContainerSize<HTMLDivElement>();
+
+  const layout = useMemo(() => pickLayout(width), [width]);
+  const { items, itemMap, edges, height } = useMemo(
+    () => computeJourneyNodes(journeyContent, layout, width),
+    [layout, width]
   );
 
   return (
-    <div className="memory-lane relative w-full h-[5500px]">
+    <div
+      ref={ref}
+      className="memory-lane relative w-full"
+      style={{ height }}
+    >
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
         {edges.map((edge, i) => (
           <MemoryPath

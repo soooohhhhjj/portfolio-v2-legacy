@@ -43,12 +43,12 @@
   .responsiveness {
   @apply 
     w-full              /* full width always */
-    /* 2xl:max-w-7xl       optional: extra-large screens */
-    xl:max-w-[930px]        /* 1280px+ */
-    lg:max-w-[975px]    /* 1024px+ */
-    md:max-w-[730px]    /* 768px+ */
-    sm:max-w-xl         /* 640px+ */
-    max-w-[370px]       /* default for mobile / very small screens */
+    /* 2xl:max-w-7xl       optional: extra-large screens ~1536px+ */
+    xl:max-w-[930px]    /* 1280px+ 13"-15" laptops / Most office monitors / typical dev machines */
+    lg:max-w-[975px]    /* 1024px+ / small laptops / tablets-ipads on landscape */
+    md:max-w-[730px]    /* 768px+ / tablets-ipads on portrait */
+    sm:max-w-xl         /* 640px+ / still mobile but on modern ones / big android phones */
+    max-w-[370px]       /* default for mobile / very small screens / mostly common on older devices */
     mx-auto;            /* center horizontally */
   }
 }
