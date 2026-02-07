@@ -308,7 +308,7 @@
 
     .hero-card-section-title{
         text-shadow: 0 0 13px rgba(255, 255, 255, 0.479);
-        -webkit-text-stroke: .1px #ffffff;
+        -webkit-text-stroke: .2px;
     }
 
     .hero-card-title{

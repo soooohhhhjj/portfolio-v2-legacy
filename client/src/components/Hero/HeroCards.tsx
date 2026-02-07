@@ -60,7 +60,7 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
         }}
         className="mb-5"
       >
-        <p className="font-bruno text-[13px] tracking-[1.3px] uppercase text-white hero-card-section-title">
+        <p className="font-bruno text-[13px] text-center tracking-[1.3px] uppercase text-white hero-card-section-title">
           Highlights
         </p>
       </motion.div>
