@@ -4,7 +4,7 @@ export const layoutDesktopLg: LayoutConfig = {
   id: "desktop-lg",
   minWidth: 1024,
   maxWidth: 1279,
-  canvasWidth: 975,
+  canvasWidth: 930,
   extraHeight: 200,
   scaleWithContainer: true,
   items: [
