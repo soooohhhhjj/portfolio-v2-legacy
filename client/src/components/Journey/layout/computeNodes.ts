@@ -54,11 +54,14 @@ export const computeJourneyNodes = (
 
   const edges = scaleEdges(layout.edges, scale);
 
+  const maxContentHeight = items.reduce(
+    (max, item) => Math.max(max, item.y + item.height),
+    0
+  );
+
   const computedHeight =
-    layout.height !== undefined
-      ? scalePoint(layout.height, scale)
-      : items.reduce((max, item) => Math.max(max, item.y + item.height), 0) +
-        scalePoint(120, scale);
+    scalePoint(layout.height ?? maxContentHeight, scale) +
+    scalePoint(layout.extraHeight ?? 120, scale);
 
   return {
     items,

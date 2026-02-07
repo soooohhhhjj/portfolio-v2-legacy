@@ -22,11 +22,12 @@ export type LayoutOverrides = Record<
 >;
 
 export interface LayoutConfig {
-  id: "mobile" | "tablet" | "desktop";
+  id: string;
   minWidth: number;
   maxWidth?: number;
   canvasWidth: number;
   height?: number;
+  extraHeight?: number;
   scaleWithContainer?: boolean;
   items: LayoutItem[];
   edges: LayoutEdge[];

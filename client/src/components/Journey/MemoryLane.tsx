@@ -5,13 +5,18 @@ import { journeyContent } from "./journey.content";
 import { computeJourneyNodes } from "./layout/computeNodes";
 import { pickLayout } from "./layout";
 import { useContainerSize } from "./layout/useContainerSize";
+import { useViewportWidth } from "./layout/useViewportWidth";
 
 import "./CSS/memoryLane.css";
 
 export default function MemoryLane() {
   const { ref, width } = useContainerSize<HTMLDivElement>();
+  const viewportWidth = useViewportWidth();
 
-  const layout = useMemo(() => pickLayout(width), [width]);
+  const layout = useMemo(
+    () => pickLayout(viewportWidth),
+    [viewportWidth]
+  );
   const { items, itemMap, edges, height } = useMemo(
     () => computeJourneyNodes(journeyContent, layout, width),
     [layout, width]

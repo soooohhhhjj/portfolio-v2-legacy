@@ -3,18 +3,18 @@ import { journeyContent } from "../journey.content";
 import type { LayoutConfig, LayoutItem } from "./layout.types";
 import { baseEdges } from "./layout.edges";
 
-const canvasWidth = 730;
-const paddingX = 28;
+const canvasWidth = 576;
+const paddingX = 0;
 const cardWidth = canvasWidth - paddingX * 2;
-const parentSize = 52;
-const gapAfterParent = 26;
-const gapAfterCard = 34;
-const startY = 80;
+const parentSize = 55;
+const gapAfterParent = 24;
+const gapAfterCard = 30;
+const startY = 70;
 
 const getCardHeight = (item: JourneyItemContent) => {
-  if (item.type === "placeholder") return 250;
-  if (item.type === "internship") return 470;
-  return 470;
+  if (item.type === "placeholder") return 200;
+  if (item.type === "internship") return 420;
+  return 420;
 };
 
 const buildStackedItems = () => {
@@ -45,15 +45,15 @@ const buildStackedItems = () => {
     y += height + gapAfterCard;
   }
 
-  return { items, height: y + 50 };
+  return { items, height: y + 40 };
 };
 
 const stacked = buildStackedItems();
 
-export const layoutTablet: LayoutConfig = {
-  id: "tablet",
-  minWidth: 768,
-  maxWidth: 1023,
+export const layoutMobileSm: LayoutConfig = {
+  id: "mobile-sm",
+  minWidth: 640,
+  maxWidth: 767,
   canvasWidth,
   extraHeight: 200,
   scaleWithContainer: true,

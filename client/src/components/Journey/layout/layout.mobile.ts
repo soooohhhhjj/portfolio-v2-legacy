@@ -3,10 +3,10 @@ import { journeyContent } from "../journey.content";
 import type { LayoutConfig, LayoutItem } from "./layout.types";
 import { baseEdges } from "./layout.edges";
 
-const canvasWidth = 390;
-const paddingX = 20;
+const canvasWidth = 370;
+const paddingX = 0;
 const cardWidth = canvasWidth - paddingX * 2;
-const parentSize = 46;
+const parentSize = 55;
 const gapAfterParent = 22;
 const gapAfterCard = 28;
 const startY = 70;
@@ -55,7 +55,7 @@ export const layoutMobile: LayoutConfig = {
   minWidth: 0,
   maxWidth: 639,
   canvasWidth,
-  height: stacked.height,
+  extraHeight: 200,
   scaleWithContainer: true,
   items: stacked.items,
   edges: baseEdges,

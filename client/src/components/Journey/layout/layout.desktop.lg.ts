@@ -1,10 +1,11 @@
 import type { LayoutConfig } from "./layout.types";
 
-export const layoutDesktop: LayoutConfig = {
-  id: "desktop",
+export const layoutDesktopLg: LayoutConfig = {
+  id: "desktop-lg",
   minWidth: 1024,
-  canvasWidth: 960,
-  height: 5500,
+  maxWidth: 1279,
+  canvasWidth: 975,
+  extraHeight: 200,
   scaleWithContainer: true,
   items: [
     { id: "node1", x: 436, y: 80, width: 56, height: 56 },
@@ -17,13 +18,13 @@ export const layoutDesktop: LayoutConfig = {
     { id: "node2-c2", x: 60, y: 1320, width: 340, height: 280 },
 
     { id: "node3", x: 436, y: 1850, width: 56, height: 56 },
-    { id: "node3-c1", x: 20, y: 2030, width: 357, height: 295 },
-    { id: "node3-c2", x: 555, y: 2100, width: 353, height: 310 },
+    { id: "node3-c1", x: 20, y: 2030, width: 364, height: 295 },
+    { id: "node3-c2", x: 555, y: 2100, width: 359, height: 313 },
 
     { id: "node4", x: 436, y: 2650, width: 56, height: 56 },
-    { id: "node4-c1", x: 540, y: 2850, width: 357, height: 305 },
-    { id: "node4-c2", x: 35, y: 2920, width: 357, height: 305 },
-    { id: "node4-c3", x: 510, y: 3260, width: 354, height: 335 },
+    { id: "node4-c1", x: 540, y: 2850, width: 364, height: 323 },
+    { id: "node4-c2", x: 35, y: 2920, width: 364, height: 323 },
+    { id: "node4-c3", x: 510, y: 3260, width: 359, height: 340 },
 
     { id: "node5", x: 436, y: 3800, width: 56, height: 56 },
     { id: "node5-c1", x: 30, y: 3980, width: 340, height: 308 },
