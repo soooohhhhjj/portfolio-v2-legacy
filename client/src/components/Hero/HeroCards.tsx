@@ -61,8 +61,9 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
         className="mb-5"
       >
         <p className="font-bruno 
-        text-[13px] sm:text-[15px]
-        text-center tracking-[1.3px] uppercase text-white hero-card-section-title">
+        text-[13px] sm:text-[15px] md:text-[12px]
+        text-center md:text-start
+        tracking-[1.3px] uppercase text-white hero-card-section-title">
           Highlights
         </p>
       </motion.div>
@@ -89,7 +90,8 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
                 relative overflow-hidden
                 rounded-[5px]
                 p-4 sm:p-6
-                w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]
+                w-full sm:w-[calc(50%-12px)] md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] 
+                md:min-h-[100px]
                 flex flex-col items-start gap-2 sm:gap-3
               "
               style={{
@@ -149,18 +151,18 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
                     }}
                   />
                   <div
-                    className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-[7px] flex items-center justify-center transition-all duration-300"
+                    className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-[7px] flex items-center justify-center transition-all duration-300"
                     style={{
                       backgroundColor: isHovered ? "#b9b84c3b" : "#ffffff08",
                       border: isHovered ? "1px solid transparent" : "1px solid #ffffff0c",
                     }}
                   >
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-5 md:h-5 text-white" />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-bruno text-[12px] sm:text-[14px] tracking-[1px] text-white hero-card-title">
+                  <h3 className="font-bruno text-[12px] sm:text-[14px] md:sm:text-[13.6px] tracking-[1px] text-white hero-card-title">
                     {card.title}
                   </h3>
 
@@ -176,7 +178,7 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
 
               {/* DESCRIPTION */}
               <p 
-                className="relative z-10 font-jura text-[12px] sm:text-[13px] leading-relaxed transition-colors duration-300"
+                className="relative z-10 font-jura text-[12px] sm:text-[13px] md:text-[12.5px] leading-relaxed transition-colors duration-300"
                 style={{
                   color: isHovered ? "#ffffffd9" : "#ffffffbf",
                 }}

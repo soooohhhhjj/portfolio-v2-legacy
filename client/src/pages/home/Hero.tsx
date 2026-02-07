@@ -52,9 +52,13 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
           initial={{ y: "100vh" }}
           animate={{ y: shouldAnimate ? 0 : "100vh" }}
           transition={{ duration: 0.6, ease: easeSmooth }}
-          className="w-full flex justify-between items-center pt-[30px] pb-[20px]"
+          className="w-full flex justify-between items-center 
+          pt-[30px] md:pt-[32px] 
+          pb-[20px] md:pb-[28px]"
         >
-          <h1 className="web-name font-bruno text-[18px] sm:text-[20px] font-[500] tracking-[2px] text-white icon-role-text">
+          <h1 className="web-name font-bruno 
+          text-[18px] sm:text-[20px] md:text-[18px]
+          font-[500] tracking-[2px] text-white icon-role-text">
             {"sohj.abe".split("").map((char, i) => (
               <span
                 key={i}
@@ -81,9 +85,13 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
             onClick={() => setIsNavOpen((open) => !open)}
           >
             {isNavOpen ? (
-              <X className="w-4 h-4 sm:w-6 sm:h-6" />
+              <X className="w-4 h-4 
+              sm:w-6 sm:h-6
+              md:w-5 sm:h-5" />
             ) : (
-              <Menu className="w-4 h-4 sm:w-6 sm:h-6" />
+              <Menu className="w-4 h-4 
+              sm:w-6 sm:h-6
+              md:w-5 sm:h-5" />
             )}
           </button>
         </motion.nav>
@@ -102,7 +110,10 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
         <div className="flex flex-col flex-1 gap-16 mt-[0px]">
 
           {/* TOP: IMAGE + TEXT */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12">
+          <div className="flex flex-col md:flex-row 
+          items-center md:items-start 
+          justify-center 
+          gap-12 md:gap-8">
 
             {/* PROFILE PIC */}
             <GlassFrame
@@ -112,7 +123,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
                 animate: { y: shouldAnimate ? 0 : "100vh" },
                 transition: { duration: 0.8, ease: easeSmooth }
               }}
-              width="max-w-full"
+              width="max-w-full md:max-w-[272px]"
               corner="rounded-[7px]"
               shadow="shadow-[0_0_30px_rgba(255,255,255,0.15)]"
               className="overflow-hidden sm:max-h-[440px]"
@@ -125,14 +136,14 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
             </GlassFrame>
 
             {/* TEXT SIDE */}
-            <div className="flex-1 max-w-[600px] text-center mt-2">
+            <div className="flex-1 max-w-[600px] text-center md:text-start mt-2">
 
               <motion.p
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
                 transition={{ duration: 0.9, ease: easeSmooth, delay: 0.05 }}
                 className="font-jura 
-                text-[15px] sm:text-[17px]
+                text-[15px] sm:text-[17px] md:text-[15px]
                 tracking-[.1px] sm:tracking-[.2px]
                 text-white font-[700]"
               >
@@ -143,7 +154,9 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
                 transition={{ duration: 1, ease: easeSmooth, delay: 0.1 }}
-                className="font-anta text-[38px] sm:text-[54px] font-extrabold leading-tight tracking-tight inline-block mt-2"
+                className="font-anta 
+                text-[38px] sm:text-[55px] md:text-[43px]
+                font-extrabold leading-tight tracking-tight inline-block mt-2"
               >
                 <span className="hero-text">Building pixel-perfect</span><br />
                 <span className="hero-gradient-text">Interactive </span>
@@ -154,7 +167,9 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
                 transition={{ duration: 1.1, ease: easeSmooth, delay: 0.15 }}
-                className="font-bruno text-[18px] sm:text-[22px] font-[500] tracking-[1px] text-white mt-10 sm:mt-12 icon-role-text"
+                className="font-bruno 
+                text-[18px] sm:text-[22px] md:text-[18px] 
+                font-[500] tracking-[1px] text-white mt-10 sm:mt-12 icon-role-text"
               >
                 Full-Stack Developer
               </motion.p>
@@ -163,17 +178,29 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
                 transition={{ duration: 1.2, ease: easeSmooth, delay: 0.2 }}
-                className="btn-pair flex flex-wrap justify-center gap-3 sm:gap-4 pt-6 sm:pt-7 text-[11px] sm:text-[12px] tracking-[.2px] font-[700] font-jura"
+                className="btn-pair flex flex-wrap justify-center md:justify-start 
+                gap-3 sm:gap-4 pt-6 
+                sm:pt-7 
+                text-[11px] sm:text-[12px] md:text-[11px] 
+                tracking-[.2px] font-[700] font-jura"
               >
                 <button
-                  className={`hero-btn hero-btn-solid px-4 py-2 sm:px-5 sm:py-2 ${outlineHover ? "btn-drain" : ""}`}
+                  className={`hero-btn hero-btn-solid flex items-center 
+                    gap-[4px] 
+                    px-[14px] md:px-[15px] 
+                    py-[8px] md:py-[7px] 
+                    rounded-[4px] font-jura font-[700] tracking-[.2px] ${outlineHover ? "btn-drain" : ""}`}
                 >
                   <Download size={12} />
                   Resume
                 </button>
 
                 <button
-                  className="hero-btn hero-btn-outline px-4 py-2 sm:px-5 sm:py-2"
+                  className="hero-btn hero-btn-outline flex items-center 
+                  gap-[4px] 
+                  px-[14px] md:px-[15px] 
+                  py-[8px] md:py-[7px] 
+                  rounded-[4px] font-jura font-[700] tracking-[.2px]"
                   onMouseEnter={() => setOutlineHover(true)}
                   onMouseLeave={() => setOutlineHover(false)}
                 >

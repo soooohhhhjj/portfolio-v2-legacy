@@ -105,11 +105,6 @@
 
     /* #region Button Styling */
     .hero-btn {
-        @apply flex items-center 
-        gap-[4px] 
-        px-[14px] 
-        py-[8px] 
-        rounded-[4px] font-jura font-[700] tracking-[.2px];
         position: relative;
         overflow: hidden;
         isolation: isolate;

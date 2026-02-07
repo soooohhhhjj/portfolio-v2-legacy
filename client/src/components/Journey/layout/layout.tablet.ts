@@ -6,7 +6,7 @@ import { baseEdges } from "./layout.edges";
 const canvasWidth = 730;
 const paddingX = 28;
 const cardWidth = canvasWidth - paddingX * 2;
-const parentSize = 52;
+const parentSize = 56;
 const gapAfterParent = 50;
 const gapAfterCard = 34;
 const gapAfterLastChild = 100;

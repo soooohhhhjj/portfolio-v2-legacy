@@ -27,7 +27,6 @@ export default function Journey({ shouldShow }: Props) {
           h-52 w-full
           bg-gradient-to-b
           from-transparent from-[0%]
-          via-black/40 via-[1%]
           to-[#0b0b0fc9] to-[100%]
         "
       />
