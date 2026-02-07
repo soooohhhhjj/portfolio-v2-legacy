@@ -140,8 +140,8 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
                 }}
               />
 
-              {/* ICON + TITLE STACK */}
-              <div className="relative z-10 flex flex-col items-start gap-2">
+              {/* ICON + TITLE ROW (md and below), STACK (lg+) */}
+              <div className="relative z-10 flex items-center gap-3 lg:flex-col lg:items-start lg:gap-2">
                 <div className="relative">
                   <div
                     className="absolute inset-0 rounded-lg blur-xl transition-opacity duration-500"
@@ -165,19 +165,21 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
                   </div>
                 </div>
 
-                <h3 className="font-bruno text-[12px] sm:text-[14px] md:sm:text-[13.6px] lg:text-[14px] 
-                lg:mt-2 tracking-[1px] text-white hero-card-title">
-                  {card.title}
-                </h3>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-bruno text-[12px] sm:text-[14px] md:sm:text-[13.6px] lg:text-[14px] 
+                    lg:mt-2 tracking-[1px] text-white hero-card-title">
+                      {card.title}
+                    </h3>
 
-                {/* Animated divider */}
-                <div
-                  className="h-[2px] bg-gradient-to-r from-white/40 to-transparent transition-all duration-500"
-                  style={{
-                    width: isHovered ? "100%" : "32px",
-                  }}
-                />
-              </div>
+                    {/* Animated divider */}
+                    <div
+                      className="h-[2px] bg-gradient-to-r from-white/40 to-transparent transition-all duration-500"
+                      style={{
+                        width: isHovered ? "100%" : "32px",
+                      }}
+                    />
+                  </div>
+                </div>
 
               {/* DESCRIPTION */}
               <p 
