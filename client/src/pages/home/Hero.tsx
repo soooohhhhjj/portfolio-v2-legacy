@@ -98,7 +98,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
 
         <div
           id="mobile-nav"
-          className={`nav-links font-jura font-medium lg:hidden flex-col gap-4 pb-10 ${isNavOpen ? "flex" : "hidden"}`}
+          className={`nav-links nav-mobile font-jura font-medium lg:hidden flex flex-col ${isNavOpen ? "nav-open" : "nav-closed"}`}
         >
           <a href="#about" className="nav-link" onClick={() => setIsNavOpen(false)}>Home</a>
           <a href="#works" className="nav-link" onClick={() => setIsNavOpen(false)}>Projects</a>
