@@ -38,14 +38,17 @@ export default function Journey({ shouldShow }: Props) {
           <div className="text-center">
             <h1 className="font-bruno 
             lg:mt-[90px]
-            text-[30px] sm:text-[38px] lg:text-[48px]
-            font-bold 
-            tracking-[1px] 
+            text-[35px] sm:text-[38px] lg:text-5xl
+            font-bold
+            tracking-[2px] 
             text-white journey-header">
               My Journey
             </h1>
 
-            <p className="mt-[7px] text-[15px] sm:text-[16px] lg:text-[17px] text-white tracking-[.3px] font-jura mx-auto journey-subheader">
+            <p className="lg:mt-[12px] 
+            text-[13px] sm:text-[16px] lg:text-[17px]
+            max-w-[80%] md:max-w-[100%] mx-auto
+             text-white tracking-[.3px] font-jura journey-subheader">
               A timeline of my growth, learning process, and projects over the years.
             </p>
           </div>
