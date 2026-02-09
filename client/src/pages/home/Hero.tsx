@@ -1,7 +1,7 @@
 // src/screens/Hero.tsx
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Download, Menu, SquareArrowOutUpRight, X } from "lucide-react";
+import { Download, SquareArrowOutUpRight } from "lucide-react";
 import type { Easing } from "framer-motion";
 import "../../components/Hero/hero.css";
 import GlassFrame from "../../components/ui/GlassCard";
@@ -52,9 +52,9 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
           initial={{ y: "100vh" }}
           animate={{ y: shouldAnimate ? 0 : "100vh" }}
           transition={{ duration: 0.6, ease: easeSmooth }}
-          className="w-full flex justify-between items-center md:items-end 
-          pt-[30px] md:pt-[32px] lg:pt-[32px]
-          pb-[20px] md:pb-[28px] lg:pb-[40px]"
+          className="w-full flex justify-between items-center lg:items-end 
+          mt-[30px] md:mt-[32px] lg:mt-[32px]
+          mb-[20px] md:mb-[28px] lg:mb-[40px]"
         >
           <h1 className="web-name font-bruno 
           text-[18px] sm:text-[20px] md:text-[18px] lg:text-[20px]
@@ -78,21 +78,15 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
 
           <button
             type="button"
-            className="lg:hidden inline-flex items-center justify-center rounded-[6px] text-white"
+            className={`hamburger lg:hidden ${isNavOpen ? "is-open" : ""}`}
             aria-label="Toggle navigation"
             aria-expanded={isNavOpen}
             aria-controls="mobile-nav"
             onClick={() => setIsNavOpen((open) => !open)}
           >
-            {isNavOpen ? (
-              <X className="w-4 h-4 
-              sm:w-6 sm:h-6
-              md:w-5 md:h-5" />
-            ) : (
-              <Menu className="w-4 h-4 
-              sm:w-6 sm:h-6
-              md:w-5 md:h-5" />
-            )}
+            <span className="hamburger-line line-1" />
+            <span className="hamburger-line line-2" />
+            <span className="hamburger-line line-3" />
           </button>
         </motion.nav>
 
