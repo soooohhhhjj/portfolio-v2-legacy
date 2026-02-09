@@ -216,7 +216,7 @@ export default function HeroCards({ shouldAnimate }: HeroCardsProps) {
             index={2}
             Icon={Layers}
             title="SysArch Thesis"
-            subtitle="Lead Developer ? Inventory Management System"
+            subtitle="Lead Developer · Inventory Management System"
             hoveredIndex={hoveredIndex}
             setHoveredIndex={setHoveredIndex}
           />
