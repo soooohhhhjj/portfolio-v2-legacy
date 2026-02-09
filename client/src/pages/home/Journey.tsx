@@ -16,7 +16,7 @@ export default function Journey({ shouldShow }: Props) {
     <motion.section
       initial={{ y: "100vh" }}
       animate={{ y: shouldShow ? 0 : "100vh" }}
-      transition={{ duration: 1, ease: easeSmooth, delay: 0.4 }}
+      transition={{ duration: 1.35, ease: easeSmooth, delay: 0.1 }}
       className={`section-style relative flex flex-col ${
         shouldShow ? "pointer-events-auto" : "pointer-events-none"
       }`}

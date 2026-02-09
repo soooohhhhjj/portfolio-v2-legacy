@@ -141,7 +141,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
               <motion.p
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
-                transition={{ duration: 0.9, ease: easeSmooth, delay: 0.05 }}
+                transition={{ duration: 0.9, ease: easeSmooth, delay: 0.01 }}
                 className="font-jura 
                 text-[15px] sm:text-[17px] md:text-[15px] lg:text-[18px]
                 tracking-[.1px] sm:tracking-[.2px]
@@ -153,7 +153,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
               <motion.h2
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
-                transition={{ duration: 1, ease: easeSmooth, delay: 0.1 }}
+                transition={{ duration: 1, ease: easeSmooth, delay: 0.02 }}
                 className="font-anta 
                 text-[38px] sm:text-[55px] md:text-[43px] lg:text-[58px]
                 font-extrabold leading-tight tracking-tight inline-block mt-2"
@@ -166,7 +166,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
               <motion.p
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
-                transition={{ duration: 1.1, ease: easeSmooth, delay: 0.15 }}
+                transition={{ duration: 1.1, ease: easeSmooth, delay: 0.03 }}
                 className="font-bruno 
                 text-[18px] sm:text-[22px] md:text-[18px] lg:text-[22px] 
                 font-[500] tracking-[1px] text-white mt-10 sm:mt-12 icon-role-text"
@@ -177,7 +177,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
               <motion.div
                 initial={{ y: "100vh" }}
                 animate={{ y: shouldAnimate ? 0 : "100vh" }}
-                transition={{ duration: 1.2, ease: easeSmooth, delay: 0.2 }}
+                transition={{ duration: 1.2, ease: easeSmooth, delay: 0.04 }}
                 className="btn-pair flex flex-wrap justify-center md:justify-start 
                 gap-3 sm:gap-4 pt-6 
                 sm:pt-7 

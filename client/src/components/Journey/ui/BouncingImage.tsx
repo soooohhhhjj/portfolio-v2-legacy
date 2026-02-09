@@ -47,8 +47,10 @@ export default function BouncingImage({ src }: Props) {
         draggable={false}
         className="
           absolute
-          w-[95px]
-          opacity-90
+          w-[90px]
+          sm:w-[120px]
+          md:w-[140px]
+          lg:w-[110px]
           pointer-events-none
           filter
           drop-shadow-[0_0_15px_rgba(255,255,255,0.35)]
