@@ -4,6 +4,7 @@ import Starfield from "./components/Starfield";
 import Welcome from "./pages/home/Welcome";
 import Hero from "./pages/home/Hero";
 import Journey from "./pages/home/Journey";
+import Skills from "./pages/home/Skills";
 import Lenis from "@studio-freight/lenis";
 import { setScrollVelocity } from "./lib/scrollState";
 
@@ -150,7 +151,7 @@ const [starMode, setStarMode] = useState<
       {
         root: null,
         threshold: 0,
-        rootMargin: "-25% 0px -75% 0px",
+        rootMargin: "-25% 0px -80% 0px",
       }
     );
 
@@ -186,9 +187,9 @@ const [starMode, setStarMode] = useState<
           onAnimationsComplete={() => setHeroDone(true)}
         />
 
-        <div ref={journeyRef}>
-          <Journey shouldShow={slideUp} />
-        </div>
+        <Journey shouldShow={slideUp} contentRef={journeyRef} />
+
+        <Skills />
       </div>
     </main>
   );

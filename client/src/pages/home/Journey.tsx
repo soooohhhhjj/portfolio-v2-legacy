@@ -1,5 +1,6 @@
 // src/pages/home/Journey.tsx
 import { motion } from "framer-motion";
+import type { Ref } from "react";
 import type { Easing } from "framer-motion";
 import "../../components/Journey/CSS/Journey.css";
 import "../../components/Hero/hero.css";
@@ -9,9 +10,10 @@ const easeSmooth: Easing = [0.12, 0.7, 0.63, 0.9];
 
 interface Props {
   shouldShow: boolean;
+  contentRef?: Ref<HTMLDivElement>;
 }
 
-export default function Journey({ shouldShow }: Props) {
+export default function Journey({ shouldShow, contentRef }: Props) {
   return (
     <motion.section
       initial={{ y: "100vh" }}
@@ -32,7 +34,10 @@ export default function Journey({ shouldShow }: Props) {
       />
 
       {/* Content area */}
-      <div className="section-content bg-[#0b0b0fc9] flex flex-col relative z-10">
+      <div
+        ref={contentRef}
+        className="section-content bg-[#0b0b0fc9] flex flex-col relative z-10"
+      >
         <div className="responsiveness">
           {/* TITLE */}
           <div className="text-center">
@@ -60,6 +65,16 @@ export default function Journey({ shouldShow }: Props) {
 
         </div>
       </div>
+      
+    {/* Fade-in buffer (adjust stops here) */}
+      <div
+        className="
+          h-52 w-full
+          bg-gradient-to-b
+          from-[#0b0b0fc9] from-[0%]
+          to-transparent to-[100%]
+        "
+      />
     </motion.section>
   );
 }
