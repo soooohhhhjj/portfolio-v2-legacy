@@ -29,6 +29,5 @@ export const skillsStyles = {
     shell:
       "group flex items-center justify-center font-jura text-white/90 text-[12px] tracking-[0.3px]",
     text: "",
-
   },
 };

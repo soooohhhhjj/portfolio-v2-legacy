@@ -5,6 +5,7 @@ import Welcome from "./pages/home/Welcome";
 import Hero from "./pages/home/Hero";
 import Journey from "./pages/home/Journey";
 import Skills from "./pages/home/Skills";
+import Footer from "./pages/home/Footer";
 import Lenis from "@studio-freight/lenis";
 import { setScrollVelocity } from "./lib/scrollState";
 
@@ -190,6 +191,8 @@ const [starMode, setStarMode] = useState<
         <Journey shouldShow={slideUp} contentRef={journeyRef} />
 
         <Skills />
+
+        <Footer />
       </div>
     </main>
   );
