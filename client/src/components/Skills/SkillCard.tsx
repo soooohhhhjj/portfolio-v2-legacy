@@ -13,8 +13,8 @@ function SkillCard({ group }: SkillCardProps) {
     <div className={skillsStyles.card.shell}>
       <div className={skillsStyles.card.body}>
         <div className={skillsStyles.card.titleRow}>
-          <Icon className="text-white w-4 h-4" />
           <h3 className={skillsStyles.card.title}>{title}</h3>
+          <Icon className="text-white w-5 h-5" />
         </div>
 
         <div className={skillsStyles.card.description}>{description}</div>
