@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import type { Ref } from "react";
 import type { Easing } from "framer-motion";
 import "../../components/Journey/CSS/Journey.css";
-import "../../components/Hero/hero.css";
+import "../../components/Hero/Hero.css";
 import MemoryLane from "../../components/Journey/MemoryLane";
 
 const easeSmooth: Easing = [0.12, 0.7, 0.63, 0.9];
