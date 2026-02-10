@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, SquareArrowOutUpRight } from "lucide-react";
 import type { Easing } from "framer-motion";
-import "../../components/Hero/hero.css";
+import "../../components/Hero/Hero.css";
 import GlassFrame from "../../components/ui/GlassCard";
 import HeroCards from "../../components/Hero/HeroCards";
 
