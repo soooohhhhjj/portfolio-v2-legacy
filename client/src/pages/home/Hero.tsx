@@ -123,7 +123,7 @@ export default function Hero({ shouldAnimate, onAnimationsComplete }: HeroProps)
               className="overflow-hidden sm:max-h-[440px]"
             >
               <img
-                src="/prof-pic.jpg"
+                src={`${import.meta.env.BASE_URL}prof-pic.jpg`}
                 alt="Profile"
                 className="w-full h-full object-cover object-top"
               />

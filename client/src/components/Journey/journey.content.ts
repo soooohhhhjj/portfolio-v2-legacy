@@ -8,6 +8,9 @@ import {
   Telescope,
 } from "lucide-react";
 
+const asset = (path: string) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
 export const journeyContent: JourneyItemContent[] = [
   {
     id: "node1",
@@ -19,7 +22,7 @@ export const journeyContent: JourneyItemContent[] = [
     type: "child",
     title: "Personal Information Website",
     details: "Project introducing HTML and basic CSS.",
-    image: "/Journey/node1/personal-info.png",
+    image: asset("Journey/node1/personal-info.png"),
     techTags: ["HTML", "CSS"],
     highlightTags: ["Basic Fundamentals"],
   },
@@ -28,7 +31,7 @@ export const journeyContent: JourneyItemContent[] = [
     type: "child",
     title: "Christmas-Themed Forms",
     details: "Project exploring website theming.",
-    image: "/Journey/node1/christmas-forms.PNG",
+    image: asset("Journey/node1/christmas-forms.PNG"),
     techTags: ["HTML", "CSS", "JavaScript"],
     highlightTags: ["Themes"],
   },
@@ -37,7 +40,7 @@ export const journeyContent: JourneyItemContent[] = [
     type: "child",
     title: "Our Interests Website",
     details: "Frameset project using CSS for animations.",
-    image: "/Journey/node1/interests-frameset.png",
+    image: asset("Journey/node1/interests-frameset.png"),
     techTags: ["HTML", "CSS", "JavaScript"],
     highlightTags: ["Animations"],
   },
@@ -52,7 +55,7 @@ export const journeyContent: JourneyItemContent[] = [
     type: "child",
     title: "Market Square",
     details: "Interactive e-commerce landing page project.",
-    image: "/Journey/node2/market-square.PNG",
+    image: asset("Journey/node2/market-square.PNG"),
     techTags: ["HTML", "CSS", "JavaScript"],
     highlightTags: ["UI/UX"],
   },
@@ -61,7 +64,7 @@ export const journeyContent: JourneyItemContent[] = [
     type: "child",
     title: "NCII Certificate",
     details: "Formal training in IT fundamentals.",
-    image: "/Journey/node2/nc2-certi.PNG",
+    image: asset("Journey/node2/nc2-certi.PNG"),
     highlightTags: ["Installation", "Configuration", "Basic Networking"],
   },
 
@@ -75,7 +78,7 @@ export const journeyContent: JourneyItemContent[] = [
     type: "child",
     title: "Game Space",
     details: "Backend PHP/MySQL project but space themed.",
-    image: "/Journey/node3/game-space.PNG",
+    image: asset("Journey/node3/game-space.PNG"),
     techTags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
   },
   {
@@ -83,7 +86,7 @@ export const journeyContent: JourneyItemContent[] = [
     type: "child",
     title: "Class Funds",
     details: "Mock Banking app project but in a classroom setting.",
-    image: "/Journey/node3/class-funds2.PNG",
+    image: asset("Journey/node3/class-funds2.PNG"),
     techTags: ["Java", "Firebase", "Android Studio"],
     highlightTags: ["Mobile App"],
   },
@@ -99,7 +102,7 @@ export const journeyContent: JourneyItemContent[] = [
     title: "System Architecture Thesis",
     details:
       "An inventory management system designed to help the beneficiary reduce stock discrepancies.",
-    image: "/Journey/node4/sysarch.PNG",
+    image: asset("Journey/node4/sysarch.PNG"),
     techTags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
   },
   {
@@ -108,7 +111,7 @@ export const journeyContent: JourneyItemContent[] = [
     title: "Capstone Thesis",
     details:
       "A system for the CSS department to centralize freshmen screening data and reduce manual work.",
-    image: "/Journey/node4/capstone-thesis.png",
+    image: asset("Journey/node4/capstone-thesis.png"),
     techTags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
   },
   {
@@ -117,7 +120,7 @@ export const journeyContent: JourneyItemContent[] = [
     title: "IT Internship Experience",
     details:
       "IT intern at Transfer It, gaining hands-on experience in troubleshooting, support, and daily IT operations.",
-    image: "/Journey/node4/tit-logo.png",
+    image: asset("Journey/node4/tit-logo.png"),
     highlightTags: [
       "Hardware Maintenance",
       "Troubleshooting",
@@ -138,7 +141,7 @@ export const journeyContent: JourneyItemContent[] = [
     type: "child",
     title: "My First Portfolio",
     details: "My first attempt at modern frameworks, building a portfolio with React.",
-    image: "/Journey/node5/portfolio.PNG",
+    image: asset("Journey/node5/portfolio.PNG"),
     techTags: ["React", "Tailwind", "TypeScript"],
   },
   {
@@ -147,7 +150,7 @@ export const journeyContent: JourneyItemContent[] = [
     title: "Portfolio v2",
     details:
       "Improved version of my portfolio website, solidifying the space-themed design.",
-    image: "/Journey/node5/portfolio-v2.PNG",
+    image: asset("Journey/node5/portfolio-v2.PNG"),
     techTags: ["React", "Tailwind", "TypeScript"],
   },
 
